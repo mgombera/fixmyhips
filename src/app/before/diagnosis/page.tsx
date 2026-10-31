@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DIAGNOSIS, OUTCOMES } from "@/content";
+import { CamImaging } from "@/components/CamImaging";
 import { Bullets, Card, Container, PageHeader, Reviewed, SectionTitle } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 
@@ -41,6 +42,15 @@ export default function DiagnosisPage() {
           </Card>
         ))}
       </div>
+
+      <section aria-labelledby="imaging" className="mt-14 flex flex-col gap-5 scroll-mt-24" id="imaging-section">
+        <SectionTitle id="imaging">See it in real surgery</SectionTitle>
+        <p className="m-0 max-w-2xl">
+          Images from Dr. Gombera&apos;s own surgery, with identifying details removed. They show a cam bump before and after
+          it is reshaped.
+        </p>
+        <CamImaging />
+      </section>
 
       <section aria-labelledby="numbers" className="mt-14 flex flex-col gap-5">
         <SectionTitle id="numbers">Know the numbers</SectionTitle>
