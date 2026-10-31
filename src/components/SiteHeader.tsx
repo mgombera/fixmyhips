@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { PRIMARY_NAV } from "@/lib/routes";
 import { PRACTICE } from "@/lib/site";
-import { PhoneIcon, AlertIcon, MenuIcon, CloseIcon } from "./icons";
+import { PhoneIcon, AlertIcon, MenuIcon, CloseIcon, HomeIcon } from "./icons";
 import { ThemeToggle } from "./ThemeToggle";
 
 function ModeSwitch({ pathname }: { pathname: string }) {
@@ -62,6 +62,14 @@ export function SiteHeader() {
         </Link>
 
         <div className="flex items-center gap-2">
+          <Link
+            href="/"
+            aria-current={pathname === "/" ? "page" : undefined}
+            className="inline-flex min-h-11 items-center gap-2 rounded-md border border-border px-3 font-semibold text-text no-underline hover:border-accent"
+          >
+            <HomeIcon />
+            <span className="sr-only sm:not-sr-only">Home</span>
+          </Link>
           <a
             href={`tel:${PRACTICE.office.tel}`}
             className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-3 font-semibold text-accent-ink no-underline"

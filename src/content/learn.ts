@@ -142,14 +142,14 @@ export const FAQ: FaqItem[] = [
     id: "crutches",
     group: "after",
     q: "How long will I need crutches?",
-    a: "Usually 3 weeks for the standard procedure, and 6 weeks after a Labral Revision or Reconstruction or a Glute Tendon Repair. Your therapist will help you wean off them.",
+    a: "Usually 3 weeks for the standard procedure, 4 weeks after a Glute Tendon Repair, and 6 weeks after a Labral Revision or Reconstruction. Your therapist will help you wean off them.",
     source: ["pt-standard", "pt-revision", "pt-glute"],
   },
   {
     id: "brace",
     group: "after",
     q: "How long will I wear the brace?",
-    a: "When walking and sitting for 4 weeks (6 weeks after a Labral Revision or Reconstruction). It can come off for showering, exercises and sleep.",
+    a: "When walking and sitting for 4 weeks (6 weeks after a Labral Revision or Reconstruction or a Glute Tendon Repair). It can come off for showering, exercises and sleep.",
     source: ["discharge", "pt-revision", "decisions"],
   },
   {

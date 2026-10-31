@@ -37,3 +37,10 @@ export const CloseIcon = ({ className }: P) => (
     <path d="M6 6l12 12M18 6L6 18" />
   </svg>
 );
+
+export const HomeIcon = ({ className }: P) => (
+  <svg {...common} className={className}>
+    <path d="M3 10.5 12 3l9 7.5" />
+    <path d="M5 9.5V21h5v-6h4v6h5V9.5" />
+  </svg>
+);
