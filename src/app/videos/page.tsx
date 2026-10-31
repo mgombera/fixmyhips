@@ -23,7 +23,7 @@ export default function VideosPage() {
         <Container className="flex flex-col gap-3 py-14">
           <p className="m-0 text-sm font-semibold uppercase tracking-widest text-muted">Watch</p>
           <h1 className="m-0 font-display text-6xl font-extrabold uppercase leading-[0.9] sm:text-8xl">Videos</h1>
-          <p className="m-0 max-w-2xl text-lg">Hip arthroscopy explained, a patient&apos;s story, and exercises after surgery.</p>
+          <p className="m-0 max-w-2xl text-lg">Hip Arthroscopy explained, a patient&apos;s story, and exercises after surgery.</p>
         </Container>
       </section>
       <Container className="flex flex-col gap-12 py-10">
@@ -44,7 +44,7 @@ export default function VideosPage() {
 
         <section aria-labelledby="rec" className="flex flex-col gap-4">
           <SectionTitle id="rec">Early recovery exercises</SectionTitle>
-          <p className="m-0 text-muted">Overviews from other hip arthroscopy programs. Your own protocol and therapist come first.</p>
+          <p className="m-0 text-muted">Overviews from other Hip Arthroscopy programs. Your own protocol and therapist come first.</p>
           <div className="grid gap-4 md:grid-cols-3">
             {recovery.map((v) => (
               <VideoPlayer key={v.id} video={v} />

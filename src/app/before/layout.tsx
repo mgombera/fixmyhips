@@ -4,6 +4,7 @@ const ITEMS = [
   { href: "/before", label: "Checklist" },
   { href: "/before/surgery-day", label: "Surgery day" },
   { href: "/before/diagnosis", label: "Your diagnosis" },
+  { href: "/before/prehab", label: "Prehab" },
   { href: "/before/add-ons", label: "Add-ons" },
 ];
 

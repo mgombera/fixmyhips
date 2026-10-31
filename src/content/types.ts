@@ -7,6 +7,7 @@ export type SourceId =
   | "discharge" // Post-Operative Instruction Checklist
   | "preop-letter" // What to Expect from your Hip Arthroscopy Surgery
   | "decisions" // Dr. Gombera's decisions, 10/30/2026 (scope section 11)
+  | "prehab" // Preoperative Rehabilitation (Prehab) Protocol for Hip Arthroscopy Patients
   | "old-site-faq"; // FAQ on the original v0 site
 
 export type Sourced = {

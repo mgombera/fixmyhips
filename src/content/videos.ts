@@ -12,7 +12,7 @@ const RAW: Video[] = [
   { id: "existing-2", youtubeId: "_ZuBxOM2KKs", source: "dr-gombera", topics: ["overview"] },
   { id: "existing-3", youtubeId: "eZBopkjkJ8s", source: "dr-gombera", topics: ["overview"] },
 
-  // Hip arthroscopy exercise compilations
+  // Hip Arthroscopy exercise compilations
   { id: "comp-nashville-week1", youtubeId: "pBzMIHKjQR8", source: "external", topics: ["recovery"], caution: "Check for active straight-leg raises" },
   { id: "comp-ochiai-level1", youtubeId: "RFnj6aaagWw", source: "external", topics: ["recovery"], caution: "Check for active straight-leg raises" },
   { id: "comp-ayzenberg", youtubeId: "MK1ws9LQIws", source: "external", topics: ["recovery"], caution: "Check for active straight-leg raises" },

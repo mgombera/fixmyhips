@@ -14,7 +14,7 @@ const LEARN = [
   {
     href: "/videos",
     title: "Videos",
-    text: "Hip arthroscopy explained, a patient's story, and every exercise after surgery.",
+    text: "Hip Arthroscopy explained, a patient's story, and every exercise after surgery.",
     cta: "Watch videos",
   },
   {
@@ -53,7 +53,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/85 to-bg/50" />
         <Container className="flex flex-col gap-6 py-14 sm:py-20">
-          <p className="m-0 text-sm font-semibold uppercase tracking-widest text-muted">Hip arthroscopy with Dr. Gombera</p>
+          <p className="m-0 text-sm font-semibold uppercase tracking-widest text-muted">Hip Arthroscopy with Dr. Gombera</p>
           <h1 className="m-0 font-display text-6xl font-extrabold uppercase leading-[0.9] sm:text-8xl">
             Your hip.
             <br />

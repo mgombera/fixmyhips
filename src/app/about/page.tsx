@@ -56,7 +56,7 @@ export default function AboutPage() {
             <p className="m-0 text-lg">Orthopedic surgery and sports medicine · Houston, Texas</p>
           </div>
           <p className="m-0 max-w-2xl text-lg">
-            Dr. Gombera directs the Hip Preservation Center and specializes in hip arthroscopy, including fully knotless
+            Dr. Gombera directs the Hip Preservation Center and specializes in Hip Arthroscopy, including fully knotless
             labral and capsular repair, a postless technique, and a capsule-sparing approach.
           </p>
           <div className="grid gap-4 md:grid-cols-2">

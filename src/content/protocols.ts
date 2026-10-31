@@ -104,7 +104,7 @@ const DRIVING =
 
 export const STANDARD: Protocol = {
   id: "standard",
-  title: "Hip arthroscopy, osteoplasty and labral repair",
+  title: "Hip Arthroscopy, Osteoplasty and Labral Repair",
   shortTitle: "Standard",
   source: ["pt-standard"],
   weightBearing: { partialLbs: 20, pattern: "foot flat, with crutches", weeks: 3 },
@@ -217,8 +217,8 @@ export const STANDARD: Protocol = {
 
 export const REVISION: Protocol = {
   id: "revision",
-  title: "Hip arthroscopy, labral revision repair or reconstruction, with or without osteoplasty",
-  shortTitle: "Revision or reconstruction",
+  title: "Hip Arthroscopy, Labral Revision Repair or Reconstruction, with or without Osteoplasty",
+  shortTitle: "Labral Revision or Reconstruction",
   source: ["pt-revision", "decisions"],
   weightBearing: { partialLbs: 20, pattern: "foot flat, with crutches", weeks: 6 },
   braceWeeks: 6,
@@ -334,8 +334,8 @@ export const REVISION: Protocol = {
 
 export const GLUTE: Protocol = {
   id: "glute",
-  title: "Hip arthroscopy with gluteus medius repair",
-  shortTitle: "With gluteus medius repair",
+  title: "Hip Arthroscopy with Glute Tendon Repair",
+  shortTitle: "Glute Tendon Repair",
   source: ["pt-glute", "decisions"],
   weightBearing: { partialLbs: 20, pattern: "foot flat, with crutches", weeks: 6 },
   braceWeeks: 4,

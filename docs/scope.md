@@ -90,7 +90,7 @@ Sixteen routes. The top bar always shows a Before surgery / After surgery switch
 | /faq | FAQ | All FAQs, searchable, grouped Before and After |
 | /red-flags | When to Call | Normal versus call-now symptoms, office and after-hours numbers, ER guidance |
 | /about | About Dr. Gombera | Headshot, credentials, Hip Preservation Center, link to gomberamd.com |
-| /contact | Contact | Office (713) 794-3457, after hours (713) 799-2300, PreAdmit (713) 794-3525, info@gomberamd.com, Athena patient portal, address |
+| /contact | Contact | Office (713) 794-3457, after hours (713) 799-2300, PreAdmit (713) 395-6607, info@gomberamd.com, Athena patient portal, address |
 | /print | Print Center | Printable checklist, protocol, home care sheet and red-flag card for the selected procedure |
 
 Old v0 routes (/introduction, /pre-op, /day-of-surgery, /post-op, /additional-info, /faq, /videos) redirect with 301s to their new equivalents, in case patients saved links.
@@ -451,6 +451,10 @@ How to hand this to Claude Code: give it this document, the three PT protocols, 
 | Search engines | Indexed, with the scheduled-patients statement and gomberamd.com consultation link |
 | Biologic add-on pricing | Call for pricing |
 | 3D hip model | Built by Claude Code as part of launch |
+| Procedure names (10/31/2026) | Title case: Hip Arthroscopy, Osteoplasty and Labral Repair; Labral Revision or Reconstruction; Hip Arthroscopy with Glute Tendon Repair |
+| First post-op therapy visit (10/31/2026) | 3 to 5 days after surgery (the prehab protocol's 4 to 7 days is superseded) |
+| Prehab (10/31/2026) | Optional page from the Prehab Protocol; brace and crutch weeks follow the decisions above |
+| Standard protocol Phase II (10/31/2026) | Keep the original: no standing hip abduction isometrics or clamshells; keep "Minimize hip flexion if symptomatic" |
 
 **Still open**
 

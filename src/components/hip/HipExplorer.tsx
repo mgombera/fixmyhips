@@ -1,5 +1,6 @@
 "use client";
 
+import { procedureLabel } from "@/lib/procedures";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ANATOMY } from "@/content";
@@ -24,9 +25,9 @@ function webglAvailable(): boolean {
 }
 
 const PROC_LABEL: Record<ProtocolId, string> = {
-  standard: "Labral repair and osteoplasty",
-  revision: "Revision or labral reconstruction",
-  glute: "With gluteus medius repair",
+  standard: procedureLabel("standard"),
+  revision: procedureLabel("revision"),
+  glute: procedureLabel("glute"),
 };
 
 function Toggle<T extends string>({
