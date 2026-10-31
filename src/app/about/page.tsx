@@ -14,7 +14,7 @@ const jsonLd = {
   medicalSpecialty: ["Orthopedic", "SportsMedicine"],
   url: "https://www.gomberamd.com/",
   telephone: "+1-713-794-3457",
-  address: { "@type": "PostalAddress", streetAddress: "7401 S. Main Street", addressLocality: "Houston", addressRegion: "TX", postalCode: "77030", addressCountry: "US" },
+  address: { "@type": "PostalAddress", streetAddress: "7401 Main Street", addressLocality: "Houston", addressRegion: "TX", postalCode: "77030", addressCountry: "US" },
 };
 
 // Credentials below need Dr. Gombera's confirmation before launch (milestone 7 walkthrough).
