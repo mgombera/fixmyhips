@@ -68,6 +68,7 @@ export function HipExplorer() {
   const [procedure, setProcedure] = useState<ProtocolId | null>(null);
   const [mode, setMode] = useState<"3d" | "2d" | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [hideFemur, setHideFemur] = useState(false);
 
   useEffect(() => {
     setMode(webglAvailable() ? "3d" : "2d");
@@ -101,7 +102,10 @@ export function HipExplorer() {
           <Toggle
             label="Camera view"
             value={view}
-            onChange={setView}
+            onChange={(vw) => {
+              setView(vw);
+              setHideFemur(vw === "inside");
+            }}
             options={[
               { value: "front", label: "Front" },
               { value: "side", label: "Side" },
@@ -110,7 +114,19 @@ export function HipExplorer() {
           />
         )}
       </div>
-      <div className="flex flex-wrap items-center gap-2 text-sm">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+        {mode === "3d" && (
+          <label className="flex min-h-11 items-center gap-2 font-semibold">
+            <input
+              type="checkbox"
+              checked={hideFemur}
+              onChange={(e) => setHideFemur(e.target.checked)}
+              className="h-5 w-5 accent-[var(--accent)]"
+            />
+            Hide the femur to see into the socket
+          </label>
+        )}
+      <div className="flex flex-wrap items-center gap-2">
         <label htmlFor="proc" className="font-semibold">
           Procedure shown:
         </label>
@@ -127,6 +143,7 @@ export function HipExplorer() {
           ))}
         </select>
       </div>
+      </div>
 
       <div className="grid gap-5 lg:grid-cols-[1fr_22rem]">
         <div
@@ -142,6 +159,7 @@ export function HipExplorer() {
               view={view}
               showGlute={proc === "glute"}
               graft={proc === "revision"}
+              hideFemur={hideFemur}
               autoRotate={!reducedMotion && selected === null}
             />
           ) : (
@@ -189,8 +207,19 @@ export function HipExplorer() {
             )}
           </div>
           <p className="m-0 text-xs text-muted">
-            A simplified illustration of a right hip, not an exact anatomical model. Your surgeon will explain your own
-            findings.
+            A right hip from CT-based anatomy. Labrum, cartilage, capsule and tendon are illustrated, not exact. Your surgeon
+            will explain your own findings.
+          </p>
+          <p className="m-0 text-xs text-muted">
+            Bone models adapted from the{" "}
+            <a href="https://github.com/hubmapconsortium/ccf-3d-reference-object-library" className="underline">
+              HuBMAP Human Reference Atlas 3D Reference Object Library
+            </a>{" "}
+            (Visible Human Male), licensed{" "}
+            <a href="https://creativecommons.org/licenses/by/4.0/" className="underline">
+              CC BY 4.0
+            </a>
+            ; cropped, merged, simplified and re-centered.
           </p>
         </div>
       </div>

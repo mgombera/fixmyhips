@@ -1,56 +1,86 @@
 "use client";
 
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import L from "./landmarks.json";
 import type { PartId, ViewId, Stage } from "./parts";
 
-// A stylized right hip built from simple shapes (no external model files).
-// Units: femoral head radius 0.5. +x lateral, +y up, +z anterior.
+// Right hip built on CT-derived bone meshes (HuBMAP HRA, Visible Human Male,
+// CC BY 4.0). Soft tissues are generated from measured landmarks.
+// Frame (meters): +Y superior, +Z anterior, lateral of this right hip is -X,
+// origin at the femoral head center. The scene is scaled up by S.
 
-const BONE = "#e9dfcd";
-const CARTILAGE = "#b9d3e8";
-const LABRUM = "#4db8ff";
-const GRAFT = "#7fd1a8";
-const TEAR = "#ff5a5a";
-const CAM = "#ff9b57";
-const MUSCLE = "#c0605a";
-const ANCHOR = "#f4f6fa";
+const S = 40;
+const MODEL_URL = "/models/hip.glb";
 
-const CUP_DIR = new THREE.Vector3(1, -0.55, 0.35).normalize(); // acetabular opening
-const RIM_R = 0.6;
+const BONE = "#e8e0cf";
+const CARTILAGE = "#9fc6e6";
+const LABRUM = "#3aa7f0";
+const GRAFT = "#5fcf98";
+const TEAR = "#ff4d4d";
+const BUMP = "#ff9b57";
+const MUSCLE = "#b8574f";
+const ANCHOR = "#ffffff";
+const CAPSULE = "#cdb8f2";
 
-function basis(n: THREE.Vector3) {
-  const u = new THREE.Vector3(0, 1, 0).cross(n).normalize();
-  const v = n.clone().cross(u).normalize();
-  return { u, v };
+const v = (a: number[]) => new THREE.Vector3(a[0], a[1], a[2]);
+const RIM = L.acetabular_rim.points.map(v);
+const RIM_N = v(L.acetabular_rim.plane_normal).normalize();
+const RIM_C = v(L.acetabular_rim.plane_centroid);
+const ACET_C = v(L.acetabulum.center);
+const NECK = v(L.femoral_neck_axis).normalize();
+
+// Rim indices: 0 = anterior (3 o'clock), clockwise from outside: anteroinferior,
+// inferior notch (about 10 to 16, no labrum there), posterior, superior.
+const TEAR_IDX = [40, 41, 42, 43, 44, 45, 46, 47, 0]; // anterosuperior, where most tears occur
+const ANCHOR_IDX = [41, 44, 47];
+
+/** Rim point pushed slightly outward (away from the socket centre) and along the opening. */
+function rimAt(i: number, out = 0.0012, lift = 0.0008) {
+  const p = RIM[(i + RIM.length) % RIM.length].clone();
+  const radial = p.clone().sub(RIM_C).projectOnPlane(RIM_N).normalize();
+  return p.add(radial.multiplyScalar(out)).add(RIM_N.clone().multiplyScalar(lift));
 }
-const { u: RIM_U, v: RIM_V } = basis(CUP_DIR);
-/** Point on the acetabular rim. angle 0 = superior-anterior, increasing anteriorly. */
-function rimPoint(angle: number, r = RIM_R) {
-  return RIM_U.clone().multiplyScalar(Math.cos(angle) * r).add(RIM_V.clone().multiplyScalar(Math.sin(angle) * r));
+
+function tube(indices: number[], radius: number, out?: number, lift?: number, closed = false) {
+  const curve = new THREE.CatmullRomCurve3(indices.map((i) => rimAt(i, out, lift)), closed, "centripetal");
+  return new THREE.TubeGeometry(curve, indices.length * 6, radius, 12, closed);
 }
 
-type MeshProps = {
+/** Indices from a to b inclusive, going forward around the rim. */
+function span(a: number, b: number) {
+  const out: number[] = [];
+  for (let i = a; ; i = (i + 1) % RIM.length) {
+    out.push(i);
+    if (i === b) break;
+  }
+  return out;
+}
+
+type PartProps = {
   id: PartId;
   selected: PartId | null;
   onSelect: (id: PartId) => void;
   color: string;
   opacity?: number;
-  children: React.ReactNode;
-  position?: [number, number, number];
-  quaternion?: THREE.Quaternion;
-  scale?: [number, number, number];
   side?: THREE.Side;
+  geometry?: THREE.BufferGeometry;
+  position?: THREE.Vector3 | [number, number, number];
+  quaternion?: THREE.Quaternion;
+  scale?: THREE.Vector3 | [number, number, number];
+  children?: React.ReactNode;
+  roughness?: number;
 };
 
-function Part({ id, selected, onSelect, color, opacity = 1, children, position, quaternion, scale, side }: MeshProps) {
+function Part({ id, selected, onSelect, color, opacity = 1, side, geometry, position, quaternion, scale, children, roughness = 0.62 }: PartProps) {
   const active = selected === id;
   const [hover, setHover] = useState(false);
   return (
     <mesh
+      geometry={geometry}
       position={position}
       quaternion={quaternion}
       scale={scale}
@@ -71,29 +101,60 @@ function Part({ id, selected, onSelect, color, opacity = 1, children, position, 
       {children}
       <meshStandardMaterial
         color={color}
-        roughness={0.55}
-        metalness={0.05}
+        roughness={roughness}
+        metalness={0.02}
         transparent={opacity < 1}
         opacity={opacity}
-        side={side ?? THREE.FrontSide}
         depthWrite={opacity >= 1}
+        side={side ?? THREE.FrontSide}
         emissive={color}
-        emissiveIntensity={active ? 0.45 : hover ? 0.22 : 0}
+        emissiveIntensity={active ? 0.38 : hover ? 0.18 : 0}
       />
     </mesh>
   );
 }
 
-function Cylinder({ from, to, radius, ...rest }: Omit<MeshProps, "children"> & { from: THREE.Vector3; to: THREE.Vector3; radius: [number, number] }) {
-  const dir = to.clone().sub(from);
-  const len = dir.length();
-  const mid = from.clone().add(to).multiplyScalar(0.5);
-  const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
+function Bone({ node, ...rest }: Omit<PartProps, "color" | "geometry"> & { node: THREE.Mesh }) {
   return (
-    <Part {...rest} position={[mid.x, mid.y, mid.z]} quaternion={q}>
-      <cylinderGeometry args={[radius[1], radius[0], len, 40, 1]} />
-    </Part>
+    <Part {...rest} color={BONE} geometry={node.geometry} position={node.position} quaternion={node.quaternion} scale={node.scale} roughness={0.75} />
   );
+}
+
+function Capsule(props: Omit<PartProps, "color">) {
+  // Loft from a ring just outside the acetabular rim to a ring around the base of the neck.
+  const geometry = useMemo(() => {
+    const seg = 48;
+    const neckBase = NECK.clone().multiplyScalar(0.034);
+    const pos: number[] = [];
+    const rows = 8;
+    for (let r = 0; r <= rows; r++) {
+      const t = r / rows;
+      for (let i = 0; i <= seg; i++) {
+        const k = Math.round((i / seg) * RIM.length) % RIM.length;
+        const a = rimAt(k, 0.004, -0.001);
+        // Match the ring's angular position to the rim point's direction around the neck.
+        const dir = a.clone().sub(neckBase).projectOnPlane(NECK).normalize();
+        const b = neckBase.clone().add(dir.multiplyScalar(0.0175));
+        const bulge = Math.sin(t * Math.PI) * 0.004;
+        const p = a.clone().lerp(b, t);
+        const outward = p.clone().projectOnPlane(NECK).normalize().multiplyScalar(bulge);
+        pos.push(p.x + outward.x, p.y + outward.y, p.z + outward.z);
+      }
+    }
+    const idx: number[] = [];
+    for (let r = 0; r < rows; r++)
+      for (let i = 0; i < seg; i++) {
+        const a = r * (seg + 1) + i;
+        const b = a + seg + 1;
+        idx.push(a, b, a + 1, b, b + 1, a + 1);
+      }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    g.setIndex(idx);
+    g.computeVertexNormals();
+    return g;
+  }, []);
+  return <Part {...props} color={CAPSULE} geometry={geometry} opacity={0.22} side={THREE.DoubleSide} />;
 }
 
 function Scene({
@@ -102,138 +163,125 @@ function Scene({
   stage,
   showGlute,
   graft,
+  hideFemur,
 }: {
   selected: PartId | null;
   onSelect: (id: PartId) => void;
   stage: Stage;
   showGlute: boolean;
   graft: boolean;
+  hideFemur: boolean;
 }) {
+  const { nodes } = useGLTF(MODEL_URL, false, true) as unknown as { nodes: Record<string, THREE.Mesh> };
   const p = { selected, onSelect };
-  const cupQ = useMemo(() => new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, -1, 0), CUP_DIR), []);
-  const rimQ = useMemo(() => new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), CUP_DIR), []);
-  const rimCenter = CUP_DIR.clone().multiplyScalar(0.02);
 
-  // Femur landmarks
-  const neckEnd = new THREE.Vector3(1.05, -0.78, 0.05);
-  const shaftTop = new THREE.Vector3(1.12, -0.55, 0);
-  const shaftBottom = new THREE.Vector3(1.0, -3.0, 0);
-  const gt = new THREE.Vector3(1.45, -0.55, -0.05);
-  const camPos = new THREE.Vector3(0.48, 0.05, 0.22);
-  const tearStart = -0.35; // radians on the rim (superior-anterior)
-  const tearLen = 0.9;
+  const geo = useMemo(() => {
+    const allLabrum = [...span(17, 9)]; // horseshoe: everything except the inferior notch
+    const intact = allLabrum.filter((i) => !TEAR_IDX.includes(i));
+    return {
+      labrumFull: tube(allLabrum, 0.0021),
+      labrumIntact: tube(intact, 0.0021),
+      labrumTear: tube(TEAR_IDX, 0.0019, 0.0006, 0.0028),
+      pincer: tube(span(38, 2), 0.0024, 0.0038, -0.0004),
+      cartilage: (() => {
+        // Spherical cap lining the socket, opening along the rim normal.
+        const r = L.acetabulum.radius - 0.0013;
+        const g = new THREE.SphereGeometry(r, 64, 32, 0, Math.PI * 2, 0, Math.PI * 0.44);
+        g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), RIM_N.clone().negate()));
+        g.translate(ACET_C.x, ACET_C.y, ACET_C.z);
+        return g;
+      })(),
+    };
+  }, []);
 
-  const anchors = [-0.25, 0.1, 0.45].map((a) => rimPoint(a, RIM_R + 0.02));
-  const gluteOrigin = new THREE.Vector3(-0.1, 1.7, -0.25);
-  const gluteInsert = gt.clone().add(new THREE.Vector3(0.05, 0.25, 0));
-  const glutePath = useMemo(
-    () => new THREE.CatmullRomCurve3([gluteOrigin, new THREE.Vector3(1.0, 0.9, -0.35), new THREE.Vector3(1.5, 0.2, -0.2), gluteInsert]),
+  // Cam bump at the anterosuperior head-neck junction.
+  const cam = v(L.head_neck_junction_anterosuperior);
+  const camOut = cam.clone().projectOnPlane(NECK).normalize();
+  const camQ = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), NECK);
+  const camPos = cam.clone().add(camOut.multiplyScalar(0.0012)).add(NECK.clone().multiplyScalar(-0.002));
+
+  // Gluteus medius from the outer ilium to the greater trochanter, passing lateral to the joint.
+  const gmO = v(L.gluteus_medius_origin);
+  const gmI = v(L.gluteus_medius_insertion);
+  const glute = useMemo(() => {
+    // A fan: broad origin along the outer ilium, narrowing to the greater trochanter.
+    const fan = (tEnd: number) => {
+      const cols = 10;
+      const rows = 16;
+      const pos: number[] = [];
+      for (let r = 0; r <= rows; r++) {
+        const t = (r / rows) * tEnd;
+        for (let c = 0; c <= cols; c++) {
+          const sCol = c / cols - 0.5; // -0.5 posterior .. +0.5 anterior
+          const top = gmO.clone().add(new THREE.Vector3(-0.004, 0.012 - Math.abs(sCol) * 0.02, sCol * 0.075));
+          const bottom = gmI.clone().add(new THREE.Vector3(-0.002, 0.004, sCol * 0.014));
+          const q = top.lerp(bottom, t);
+          q.x -= Math.sin(t * Math.PI) * 0.007 + 0.002; // sits on, and bulges out from, the outer ilium
+          pos.push(q.x, q.y, q.z);
+        }
+      }
+      const idx: number[] = [];
+      for (let r = 0; r < rows; r++)
+        for (let c = 0; c < cols; c++) {
+          const a = r * (cols + 1) + c;
+          const b = a + cols + 1;
+          idx.push(a, b, a + 1, b, b + 1, a + 1);
+        }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+      g.setIndex(idx);
+      g.computeVertexNormals();
+      return g;
+    };
+    return { full: fan(1), torn: fan(0.86) };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
+  }, []);
 
   return (
-    <group rotation={[0, -0.35, 0]} position={[-0.3, 0.25, 0]}>
-      {/* Pelvis: ilium blade, pubis and ischium */}
-      <Part {...p} id="pelvis" color={BONE} position={[-0.35, 1.35, -0.15]} scale={[1.05, 1.15, 0.28]} quaternion={new THREE.Quaternion().setFromEuler(new THREE.Euler(0.1, 0, -0.25))}>
-        <sphereGeometry args={[1, 48, 32]} />
-      </Part>
-      <Cylinder {...p} id="pelvis" color={BONE} from={new THREE.Vector3(-0.2, -0.1, 0.25)} to={new THREE.Vector3(-1.6, -0.35, 0.75)} radius={[0.26, 0.2]} />
-      <Cylinder {...p} id="pelvis" color={BONE} from={new THREE.Vector3(-0.1, -0.35, -0.2)} to={new THREE.Vector3(-0.35, -1.45, -0.45)} radius={[0.3, 0.24]} />
-      {/* Acetabular cup (outer bone) */}
-      <Part {...p} id="pelvis" color={BONE} quaternion={cupQ} side={THREE.DoubleSide}>
-        <sphereGeometry args={[0.74, 48, 24, 0, Math.PI * 2, 0, Math.PI / 2]} />
-      </Part>
+    <group scale={S}>
+      <Bone {...p} id="pelvis" node={nodes.pelvis} />
+      {!hideFemur && <Bone {...p} id="femur" node={nodes.femur} />}
 
-      {/* Cartilage lining of the socket */}
-      <Part {...p} id="cartilage" color={CARTILAGE} quaternion={cupQ} side={THREE.DoubleSide}>
-        <sphereGeometry args={[0.56, 48, 24, 0, Math.PI * 2, 0.05, Math.PI / 2 - 0.08]} />
-      </Part>
+      <Part {...p} id="cartilage" color={CARTILAGE} geometry={geo.cartilage} side={THREE.BackSide} roughness={0.9} opacity={0.85} />
 
-      {/* Pincer: extra rim coverage (before only) */}
-      {stage === "before" && (
-        <Part {...p} id="pincer" color={CAM} position={[rimCenter.x, rimCenter.y, rimCenter.z]} quaternion={rimQ}>
-          <torusGeometry args={[RIM_R + 0.14, 0.07, 16, 48, 1.1]} />
-        </Part>
+      {stage === "before" ? (
+        <>
+          <Part {...p} id="labrum" color={LABRUM} geometry={geo.labrumIntact} roughness={0.4} />
+          <Part {...p} id="labrum" color={TEAR} geometry={geo.labrumTear} roughness={0.4} />
+          <Part {...p} id="pincer" color={BUMP} geometry={geo.pincer} />
+          {!hideFemur && (
+            <Part {...p} id="cam" color={BUMP} position={camPos} quaternion={camQ} scale={[0.0042, 0.0065, 0.0042]}>
+              <sphereGeometry args={[1, 32, 24]} />
+            </Part>
+          )}
+        </>
+      ) : (
+        <>
+          <Part {...p} id="labrum" color={graft ? GRAFT : LABRUM} geometry={geo.labrumFull} roughness={0.4} />
+          {ANCHOR_IDX.map((i) => {
+            const a = rimAt(i, -0.0012, 0.0002);
+            return (
+              <Part key={i} {...p} id="labrum" color={ANCHOR} position={a}>
+                <sphereGeometry args={[0.0013, 16, 12]} />
+              </Part>
+            );
+          })}
+        </>
       )}
 
-      {/* Labrum: torn segment before, repaired (or graft) after */}
-      <group position={[rimCenter.x, rimCenter.y, rimCenter.z]} quaternion={rimQ}>
-        {stage === "before" ? (
-          <>
-            <group rotation={[0, 0, tearStart + tearLen]}>
-              <Part {...p} id="labrum" color={LABRUM}>
-                <torusGeometry args={[RIM_R, 0.065, 16, 96, Math.PI * 2 - tearLen]} />
-              </Part>
-            </group>
-            <group rotation={[0, 0, tearStart]}>
-              <Part {...p} id="labrum" color={TEAR}>
-                <torusGeometry args={[RIM_R, 0.075, 16, 32, tearLen]} />
-              </Part>
-            </group>
-          </>
-        ) : (
-          <Part {...p} id="labrum" color={graft ? GRAFT : LABRUM}>
-            <torusGeometry args={[RIM_R, 0.065, 16, 96]} />
-          </Part>
-        )}
-      </group>
-      {stage === "after" &&
-        anchors.map((a, i) => (
-          <Part key={i} {...p} id="labrum" color={ANCHOR} position={[a.x, a.y, a.z]}>
-            <sphereGeometry args={[0.045, 16, 12]} />
-          </Part>
-        ))}
+      {!hideFemur && <Capsule {...p} id="capsule" />}
 
-      {/* Femur: head, neck, greater and lesser trochanter, shaft */}
-      <Part {...p} id="femur" color={BONE}>
-        <sphereGeometry args={[0.5, 48, 32]} />
-      </Part>
-      <Cylinder {...p} id="femur" color={BONE} from={new THREE.Vector3(0.2, -0.12, 0.02)} to={neckEnd} radius={[0.27, 0.33]} />
-      <Part {...p} id="femur" color={BONE} position={[gt.x, gt.y, gt.z]} scale={[0.38, 0.42, 0.36]}>
-        <sphereGeometry args={[1, 32, 24]} />
-      </Part>
-      <Part {...p} id="femur" color={BONE} position={[0.82, -1.35, -0.18]} scale={[0.16, 0.18, 0.16]}>
-        <sphereGeometry args={[1, 24, 16]} />
-      </Part>
-      <Part {...p} id="femur" color={BONE} position={[1.12, -0.72, 0]} scale={[0.4, 0.42, 0.36]}>
-        <sphereGeometry args={[1, 32, 24]} />
-      </Part>
-      <Cylinder {...p} id="femur" color={BONE} from={shaftTop} to={shaftBottom} radius={[0.36, 0.3]} />
-
-      {/* Cam bump at the head-neck junction (before only) */}
-      {stage === "before" && (
-        <Part {...p} id="cam" color={CAM} position={[camPos.x, camPos.y, camPos.z]} scale={[0.22, 0.15, 0.19]}>
-          <sphereGeometry args={[1, 32, 24]} />
-        </Part>
-      )}
-
-      {/* Capsule: translucent sleeve from the rim to the base of the neck */}
-      <Cylinder
-        {...p}
-        id="capsule"
-        color="#d8c7f0"
-        opacity={0.22}
-        side={THREE.DoubleSide}
-        from={CUP_DIR.clone().multiplyScalar(-0.05)}
-        to={new THREE.Vector3(1.0, -0.75, 0.05)}
-        radius={[0.82, 0.55]}
-      />
-
-      {/* Gluteus medius (shown for the gluteus medius procedure) */}
       {showGlute && (
         <>
-          <Part {...p} id="gluteus-medius" color={MUSCLE}>
-            <tubeGeometry args={[glutePath, 48, 0.17, 16, false]} />
-          </Part>
+          <Part {...p} id="gluteus-medius" color={MUSCLE} geometry={stage === "before" ? glute.torn : glute.full} opacity={0.9} side={THREE.DoubleSide} />
           {stage === "before" ? (
-            <Part {...p} id="gluteus-medius" color={TEAR} position={[gluteInsert.x, gluteInsert.y - 0.12, gluteInsert.z]} scale={[0.14, 0.05, 0.14]}>
+            <Part {...p} id="gluteus-medius" color={TEAR} position={gmI.clone().add(new THREE.Vector3(-0.004, 0.003, 0))} scale={[0.004, 0.0018, 0.005]}>
               <sphereGeometry args={[1, 16, 12]} />
             </Part>
           ) : (
-            [0, 1].map((i) => (
-              <Part key={i} {...p} id="gluteus-medius" color={ANCHOR} position={[gt.x + 0.15, gt.y + 0.12 - i * 0.16, gt.z + 0.08]}>
-                <sphereGeometry args={[0.045, 16, 12]} />
+            [0, 1].map((k) => (
+              <Part key={k} {...p} id="gluteus-medius" color={ANCHOR} position={gmI.clone().add(new THREE.Vector3(-0.0035, 0.004 - k * 0.006, 0.003))}>
+                <sphereGeometry args={[0.0013, 16, 12]} />
               </Part>
             ))
           )}
@@ -243,18 +291,23 @@ function Scene({
   );
 }
 
+// Camera presets in scaled scene units (target near the joint).
+const TARGET: [number, number, number] = [-0.4, 0.6, 0];
 const VIEWS: Record<ViewId, { pos: [number, number, number]; target: [number, number, number] }> = {
-  front: { pos: [0.2, 0.1, 8.6], target: [0.2, -0.1, 0] },
-  side: { pos: [8.4, 0.2, 1.2], target: [0.2, -0.1, 0] },
-  inside: { pos: [2.6, -0.6, 2.9], target: [-0.1, 0.25, 0] },
+  front: { pos: [-0.8, 1.2, 18.5], target: TARGET },
+  side: { pos: [-18.5, 1.2, 2.5], target: TARGET },
+  inside: {
+    pos: RIM_N.clone().multiplyScalar(S * 0.15).add(ACET_C.clone().multiplyScalar(S)).toArray() as [number, number, number],
+    target: ACET_C.clone().multiplyScalar(S).toArray() as [number, number, number],
+  },
 };
 
 function CameraRig({ view, controls }: { view: ViewId; controls: React.RefObject<OrbitControlsImpl | null> }) {
   const { camera } = useThree();
   useEffect(() => {
-    const v = VIEWS[view];
-    camera.position.set(...v.pos);
-    controls.current?.target.set(...v.target);
+    const vw = VIEWS[view];
+    camera.position.set(...vw.pos);
+    controls.current?.target.set(...vw.target);
     controls.current?.update();
   }, [view, camera, controls]);
   return null;
@@ -267,6 +320,7 @@ export default function HipModel3D({
   view,
   showGlute,
   graft,
+  hideFemur,
   autoRotate,
 }: {
   selected: PartId | null;
@@ -275,23 +329,23 @@ export default function HipModel3D({
   view: ViewId;
   showGlute: boolean;
   graft: boolean;
+  hideFemur: boolean;
   autoRotate: boolean;
 }) {
   const controls = useRef<OrbitControlsImpl | null>(null);
   return (
-    <Canvas
-      camera={{ position: VIEWS.front.pos, fov: 40 }}
-      dpr={[1, 2]}
-      gl={{ antialias: true, preserveDrawingBuffer: true }}
-      aria-hidden="true"
-    >
+    <Canvas camera={{ position: VIEWS.front.pos, fov: 38, near: 0.05, far: 200 }} dpr={[1, 2]} gl={{ antialias: true, preserveDrawingBuffer: true }} aria-hidden="true">
       <color attach="background" args={["#0c1124"]} />
-      <ambientLight intensity={0.55} />
-      <directionalLight position={[4, 6, 6]} intensity={1.6} />
-      <directionalLight position={[-5, -2, -4]} intensity={0.45} />
-      <Scene selected={selected} onSelect={onSelect} stage={stage} showGlute={showGlute} graft={graft} />
-      <OrbitControls ref={controls} makeDefault enablePan={false} minDistance={2} maxDistance={12} autoRotate={autoRotate} autoRotateSpeed={0.6} />
+      <hemisphereLight args={["#ffffff", "#3a4366", 0.75]} />
+      <directionalLight position={[-6, 8, 10]} intensity={1.7} />
+      <directionalLight position={[8, -2, -6]} intensity={0.5} />
+      <Suspense fallback={null}>
+        <Scene selected={selected} onSelect={onSelect} stage={stage} showGlute={showGlute} graft={graft} hideFemur={hideFemur} />
+      </Suspense>
+      <OrbitControls ref={controls} makeDefault enablePan={false} minDistance={1.5} maxDistance={25} autoRotate={autoRotate} autoRotateSpeed={0.5} />
       <CameraRig view={view} controls={controls} />
     </Canvas>
   );
 }
+
+useGLTF.preload(MODEL_URL, false, true);
