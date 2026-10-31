@@ -28,17 +28,21 @@ export function ExerciseLibrary() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div role="note" className="flex flex-col gap-2 rounded-xl border border-accent bg-surface p-4">
+      <div className="flex flex-col gap-1 rounded-xl border-2 border-accent bg-surface p-4">
+        <p className="m-0 text-xs font-semibold uppercase tracking-widest text-muted">Protocol shown</p>
+        <p className="m-0 font-display text-2xl font-bold uppercase sm:text-3xl">
+          {protocol.shortTitle}: {protocol.title}
+        </p>
+        <p className="m-0 text-sm text-muted">
+          {PROTOCOL_NOTICE}{" "}
+          <Link href={isDefault ? "/" : "/?setup=1"} className="underline underline-offset-2">
+            {isDefault ? "Set your procedure" : "Change procedure"}
+          </Link>
+        </p>
+      </div>
+      <div role="note" className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4">
         <p className="m-0 font-semibold">{PT_OVERRIDE_NOTICE}</p>
         <p className="m-0 font-semibold">{VIDEO_NOTICE}</p>
-        <p className="m-0 text-sm text-muted">
-          Showing the {protocol.shortTitle.toLowerCase()} protocol. {PROTOCOL_NOTICE}{" "}
-          {isDefault && (
-            <Link href="/" className="underline">
-              Set your procedure
-            </Link>
-          )}
-        </p>
       </div>
 
       <div role="group" aria-label="Filter by phase" className="flex flex-wrap gap-2">
@@ -96,7 +100,6 @@ export function ExerciseLibrary() {
                             {videos.map((v) => (
                               <VideoPlayer key={v.id} video={v} />
                             ))}
-                            <p className="m-0 text-xs text-muted">{VIDEO_NOTICE}</p>
                           </div>
                         ) : (
                           <p className="m-0 text-sm text-muted">Video coming soon. Ask your therapist to show you.</p>

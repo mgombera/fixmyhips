@@ -90,9 +90,8 @@ export function SiteHeader() {
 
       <div className="mx-auto max-w-6xl px-4 pb-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <ModeSwitch pathname={pathname} />
           <nav aria-label="Main" className="hidden md:block">
-            <ul className="flex gap-1">
+            <ul className="-ml-3 flex gap-1">
               {PRIMARY_NAV.map((item) => {
                 const active = pathname === item.href;
                 return (
@@ -109,6 +108,7 @@ export function SiteHeader() {
               })}
             </ul>
           </nav>
+          <ModeSwitch pathname={pathname} />
         </div>
         {open && (
           <nav id="mobile-nav" aria-label="Main" className="mt-3 md:hidden">

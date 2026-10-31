@@ -4,10 +4,13 @@ import Link from "next/link";
 import { CHECKLIST, PREADMIT_WINDOW } from "@/content";
 import type { ChecklistItem } from "@/content";
 import { toggleChecklist, useHydrated, useProfile } from "@/lib/profile";
+import { addDays } from "date-fns";
 import { formatUS, fromISO, status } from "@/lib/recovery";
 import type { BeforeStatus } from "@/lib/recovery";
 import { PRACTICE } from "@/lib/site";
 import { AlertIcon, PhoneIcon } from "./icons";
+
+const EXAMPLE_DAYS_OUT = 12;
 
 const BLOCKS: { id: ChecklistItem["block"]; title: string }[] = [
   { id: "now", title: "Now" },
@@ -116,10 +119,13 @@ export function BeforeDashboard() {
   const profile = useProfile();
   if (!hydrated) return <div className="min-h-96" aria-busy="true" />;
 
-  const d = profile?.surgeryDate ? fromISO(profile.surgeryDate) : null;
-  const s = d && profile ? status(d, new Date(), profile.procedure, profile.checklist) : null;
-  const before = s?.mode === "before" ? s : null;
+  const realDate = profile?.surgeryDate ? fromISO(profile.surgeryDate) : null;
+  // No date yet: show a labeled example with surgery 12 days away.
+  const example = !realDate;
+  const d = realDate ?? addDays(new Date(), EXAMPLE_DAYS_OUT);
   const checked = profile?.checklist ?? {};
+  const s = status(d, new Date(), profile?.procedure ?? "standard", checked);
+  const before = s.mode === "before" ? s : null;
   const doneCount = CHECKLIST.filter((c) => checked[c.id]).length;
   const pct = Math.round((doneCount / CHECKLIST.length) * 100);
 
@@ -144,24 +150,23 @@ export function BeforeDashboard() {
         )}
       </div>
 
-      {!profile && (
-        <div className="rounded-xl border border-accent bg-surface p-4">
-          <strong>Add your surgery date to see your deadlines and tick items off.</strong>{" "}
-          <Link href="/" className="font-semibold underline underline-offset-2">
-            Set up your plan
+      {example && (
+        <div role="note" className="flex flex-col gap-2 rounded-xl border-2 border-accent bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="m-0">
+            <strong>Example: this is what your checklist looks like {EXAMPLE_DAYS_OUT} days before surgery.</strong>{" "}
+            {profile
+              ? "You can start ticking items now. Add your date when surgery is scheduled to see your own deadlines."
+              : "Add your surgery date to see your own deadlines and tick items off."}
+          </p>
+          <Link
+            href={profile ? "/?setup=1" : "/"}
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-md bg-accent px-5 font-bold text-accent-ink no-underline"
+          >
+            {profile ? "Add your date" : "Set up your plan"}
           </Link>
         </div>
       )}
-      {profile && !d && (
-        <div className="rounded-xl border border-border bg-surface p-4">
-          No surgery date yet. You can start the list now.{" "}
-          <Link href="/?setup=1" className="font-semibold underline underline-offset-2">
-            Add your date
-          </Link>{" "}
-          when it is scheduled to see your deadlines.
-        </div>
-      )}
-      {s?.mode === "after" && d && (
+      {s.mode === "after" && (
         <div className="rounded-xl border border-accent bg-surface p-4">
           <strong>Your surgery was on {formatUS(d)}.</strong>{" "}
           <Link href="/after" className="font-semibold underline underline-offset-2">
