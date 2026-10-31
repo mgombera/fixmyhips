@@ -1,3 +1,4 @@
+import logo from "./logo.json";
 // Practice facts used across the site. Clinical content lives in content/ (milestone 2).
 
 export const PRACTICE = {
@@ -13,7 +14,7 @@ export const PRACTICE = {
   email: "info@gomberamd.com",
   portalUrl: "https://15533-8.portal.athenahealth.com",
   consultUrl: "https://www.gomberamd.com/",
-  logoUrl: "https://www.gomberamd.com/wp-content/uploads/logo.webp",
+  logoUrl: logo.src, // local copy made by scripts/fetch-logo.mjs, or the gomberamd.com address
 } as const;
 
 export const AUDIENCE_STATEMENT =

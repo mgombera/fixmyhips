@@ -7,6 +7,7 @@ import { useState } from "react";
 import { PRIMARY_NAV } from "@/lib/routes";
 import { PRACTICE } from "@/lib/site";
 import { PhoneIcon, AlertIcon, MenuIcon, CloseIcon } from "./icons";
+import { ThemeToggle } from "./ThemeToggle";
 
 function ModeSwitch({ pathname }: { pathname: string }) {
   const isBefore = pathname.startsWith("/before");
@@ -75,6 +76,7 @@ export function SiteHeader() {
             <AlertIcon />
             <span>Red flags</span>
           </Link>
+          <ThemeToggle />
           <button
             type="button"
             className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md border border-border text-text md:hidden"

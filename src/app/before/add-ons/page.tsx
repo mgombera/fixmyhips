@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BIOLOGICS } from "@/content";
-import { Card, Container, PageHeader, Reviewed } from "@/components/ui";
+import { Card, Container, PageHeader } from "@/components/ui";
 import { PhoneIcon } from "@/components/icons";
 import { routeInfo } from "@/lib/routes";
 import { PRACTICE } from "@/lib/site";
@@ -42,7 +42,6 @@ export default function AddOnsPage() {
           </a>
         </Card>
       </div>
-      <Reviewed />
     </Container>
   );
 }

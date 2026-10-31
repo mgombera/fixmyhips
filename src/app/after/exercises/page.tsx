@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ExerciseLibrary } from "@/components/ExerciseLibrary";
-import { Container, PageHeader, Reviewed } from "@/components/ui";
+import { Container, PageHeader } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 
 const r = routeInfo("/after/exercises");
@@ -13,7 +13,6 @@ export default function ExercisesPage() {
       <div className="mt-8">
         <ExerciseLibrary />
       </div>
-      <Reviewed />
     </Container>
   );
 }

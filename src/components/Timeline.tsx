@@ -7,6 +7,7 @@ import { useHydrated } from "@/lib/profile";
 import { formatUS, status } from "@/lib/recovery";
 import { useProtocol } from "@/lib/useProtocol";
 import { Bullets } from "./ui";
+import { keyRules, romLimits } from "@/lib/protocolText";
 
 export function Timeline() {
   const hydrated = useHydrated();
@@ -37,20 +38,11 @@ export function Timeline() {
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="rounded-xl border border-border bg-surface p-4">
           <h2 className="m-0 mb-2 text-sm font-semibold uppercase tracking-widest text-muted">Range of motion limits, Phase I</h2>
-          <Bullets items={[`No sitting with the hip bent past ${protocol.flexionLimitDeg} degrees`, ...protocol.romRestrictions, ...protocol.extraRestrictions]} />
+          <Bullets items={romLimits(protocol)} />
         </div>
         <div className="rounded-xl border border-border bg-surface p-4">
           <h2 className="m-0 mb-2 text-sm font-semibold uppercase tracking-widest text-muted">Key rules</h2>
-          <Bullets
-            items={[
-              `${protocol.weightBearing.partialLbs} lb weight bearing, ${protocol.weightBearing.pattern}, for ${protocol.weightBearing.weeks} weeks`,
-              `Brace when walking for ${protocol.braceWeeks} weeks`,
-              ...(protocol.proneLying ? ["Lie on your stomach 2 to 3 hours a day in Phase I"] : []),
-              `Aqua therapy after week ${protocol.aquaTherapyAfterWeek}, once incisions are healed`,
-              `Running progression after ${protocol.runningAfterMonths} months`,
-              ...protocol.notes,
-            ]}
-          />
+          <Bullets items={keyRules(protocol)} />
         </div>
       </div>
 

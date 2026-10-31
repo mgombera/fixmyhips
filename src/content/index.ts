@@ -8,6 +8,7 @@ export * from "./before";
 export * from "./after";
 export * from "./safety";
 export * from "./learn";
+export * from "./print";
 
 /**
  * Date Dr. Gombera signed off the clinical content (MM/DD/YYYY).

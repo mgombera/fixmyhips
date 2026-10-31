@@ -19,8 +19,10 @@
   color-scheme: dark;
 }
 
+/* Light theme: follows the system setting unless the patient picks one
+   with the theme switch (stored in this browser as data-theme on <html>). */
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-theme="dark"]) {
     --bg: #f4f6fa;
     --surface: #ffffff;
     --border: #d5dbe7;
@@ -35,8 +37,25 @@
   }
 }
 
+:root[data-theme="light"],
+.theme-light {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --border: #d5dbe7;
+    --brand: #313e6b;
+    --accent: #1b64a8;
+    --accent-ink: #ffffff;
+    --alert: #b54708;
+    --alert-surface: #fdf1e8;
+    --text: #10152a;
+    --muted: #4a5470;
+    color-scheme: light;
+}
+
 @media print {
-  :root {
+  /* Beats every theme selector above, so printouts are always light. */
+  :root:is(*, [data-theme], :not([data-theme="dark"])),
+  .theme-light {
     --bg: #ffffff;
     --surface: #ffffff;
     --border: #c9d0dd;
@@ -104,4 +123,10 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Printed sheets: US letter with a modest margin. */
+@page {
+  size: letter;
+  margin: 0.5in;
 }

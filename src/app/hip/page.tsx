@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HipExplorer } from "@/components/hip/HipExplorer";
-import { Container, PageHeader, Reviewed } from "@/components/ui";
+import { Container, PageHeader } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 
 const r = routeInfo("/hip");
@@ -23,7 +23,6 @@ export default function HipPage() {
           See a real cam bump on X-ray and through the arthroscope, before and after surgery
         </Link>
       </p>
-      <Reviewed />
     </Container>
   );
 }

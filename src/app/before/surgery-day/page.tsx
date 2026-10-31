@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { SURGERY_DAY } from "@/content";
-import { Bullets, Container, PageHeader, Reviewed } from "@/components/ui";
+import { Bullets, Container, PageHeader } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 import { PRACTICE } from "@/lib/site";
 
@@ -64,9 +64,6 @@ export default function SurgeryDayPage() {
           </Container>
         </div>
       </section>
-      <Container>
-        <Reviewed />
-      </Container>
     </>
   );
 }
