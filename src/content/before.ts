@@ -159,3 +159,61 @@ export const BIOLOGICS: InfoSection = {
   ],
   source: ["preop-letter", "decisions"],
 };
+
+// Optional prehab (Prehab Protocol, supplied 10/31/2026). Where the protocol
+// differs from the decisions table, the decision wins: first post-op therapy
+// visit 3 to 5 days after surgery (decision 10/31/2026), brace when walking
+// and sitting, crutch weeks by procedure.
+export const PREHAB_INTRO: InfoSection = {
+  id: "prehab-intro",
+  title: "What prehab is",
+  points: [
+    "Prehab is physical therapy for about 2 weeks before surgery. It is optional.",
+    "It builds core and glute strength and lets you practice crutches and your post-op limits before you need them.",
+    "Ask our office if you would like a prehab prescription.",
+  ],
+  source: ["prehab"],
+  derived: true,
+};
+
+export const PREHAB_GOALS: InfoSection = {
+  id: "prehab-goals",
+  title: "Goals",
+  points: [
+    "Physical therapy for 2 weeks before surgery",
+    "An evaluation and goals for after surgery",
+    "Learn the range of motion limits you will follow after surgery",
+    "Practice 20 lb weight bearing with a foot-flat pattern on crutches, including stairs",
+    "Find out if you need extra equipment, such as a raised toilet seat or a reacher, only as needed",
+    "An exercise program for core and glute strength",
+    "Schedule your first post-op therapy visit for 3 to 5 days after surgery",
+  ],
+  source: ["prehab", "decisions"],
+};
+
+export const PREHAB_EXERCISES: InfoSection = {
+  id: "prehab-exercises",
+  title: "Exercises",
+  points: [
+    "Core strengthening",
+    "Glute strengthening",
+    "Single-leg calf raises",
+    "Single-leg squats",
+    "Side-lying hip abduction and adduction",
+    "Four-point kneeling hip rocks",
+    "Kneeling hip flexor stretches",
+  ],
+  source: ["prehab"],
+};
+
+export const PREHAB_RESTRICTIONS: InfoSection = {
+  id: "prehab-restrictions",
+  title: "Limits to practice for after surgery",
+  points: [
+    "No sitting with the hip bent past 90 degrees, to avoid hip flexor irritation",
+    "Hip brace when walking and sitting, usually for 4 weeks (6 after a Labral Revision or Reconstruction)",
+    "20 lb weight bearing with a foot-flat pattern on crutches, usually for 3 weeks (6 after a Labral Revision or Reconstruction or a Glute Tendon Repair)",
+    "Range of motion: abduction to 45 degrees, no extension past 0, internal rotation to neutral, external rotation to 30 degrees",
+  ],
+  source: ["prehab", "pt-standard", "decisions"],
+};

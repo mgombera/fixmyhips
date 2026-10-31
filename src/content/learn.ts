@@ -142,14 +142,14 @@ export const FAQ: FaqItem[] = [
     id: "crutches",
     group: "after",
     q: "How long will I need crutches?",
-    a: "Usually 3 weeks for the standard procedure, and 6 weeks after a revision, labral reconstruction or gluteus medius repair. Your therapist will help you wean off them.",
+    a: "Usually 3 weeks for the standard procedure, and 6 weeks after a Labral Revision or Reconstruction or a Glute Tendon Repair. Your therapist will help you wean off them.",
     source: ["pt-standard", "pt-revision", "pt-glute"],
   },
   {
     id: "brace",
     group: "after",
     q: "How long will I wear the brace?",
-    a: "When walking and sitting for 4 weeks (6 weeks after a revision or reconstruction). It can come off for showering, exercises and sleep.",
+    a: "When walking and sitting for 4 weeks (6 weeks after a Labral Revision or Reconstruction). It can come off for showering, exercises and sleep.",
     source: ["discharge", "pt-revision", "decisions"],
   },
   {
@@ -177,7 +177,7 @@ export const FAQ: FaqItem[] = [
     id: "sports",
     group: "after",
     q: "When can I return to sports?",
-    a: "Running begins at 3 months for the standard procedure and 4 months after a revision or gluteus medius repair. Return to sport usually takes 6 to 9 months, and improvement can continue for up to 12 months.",
+    a: "Running begins at 3 months for the standard procedure and 4 months after a Labral Revision or Reconstruction or a Glute Tendon Repair. Return to sport usually takes 6 to 9 months, and improvement can continue for up to 12 months.",
     source: ["pt-standard", "decisions", "preop-letter", "old-site-faq"],
   },
   {

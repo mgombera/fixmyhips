@@ -17,11 +17,12 @@ export * from "./print";
 export const CONTENT_REVIEWED_ON: string | null = "10/30/2026";
 
 export const SOURCES: Record<SourceId, string> = {
-  "pt-standard": "PT protocol: hip arthroscopy, osteoplasty and labral repair (athletes)",
-  "pt-revision": "PT protocol: labral revision repair or reconstruction",
-  "pt-glute": "PT protocol: hip arthroscopy with gluteus medius repair",
+  "pt-standard": "PT protocol: Hip Arthroscopy, Osteoplasty and Labral Repair (athletes)",
+  "pt-revision": "PT protocol: Labral Revision Repair or Reconstruction",
+  "pt-glute": "PT protocol: Hip Arthroscopy with Glute Tendon Repair",
   discharge: "Post-operative instruction checklist (discharge sheet)",
   "preop-letter": "What to Expect from your Hip Arthroscopy Surgery (pre-op letter)",
+  prehab: "Preoperative Rehabilitation (Prehab) Protocol for Hip Arthroscopy Patients",
   decisions: "Dr. Gombera's decisions, 10/30/2026",
   "old-site-faq": "FAQ on the original site",
 };

@@ -451,6 +451,10 @@ How to hand this to Claude Code: give it this document, the three PT protocols, 
 | Search engines | Indexed, with the scheduled-patients statement and gomberamd.com consultation link |
 | Biologic add-on pricing | Call for pricing |
 | 3D hip model | Built by Claude Code as part of launch |
+| Procedure names (10/31/2026) | Title case: Hip Arthroscopy, Osteoplasty and Labral Repair; Labral Revision or Reconstruction; Hip Arthroscopy with Glute Tendon Repair |
+| First post-op therapy visit (10/31/2026) | 3 to 5 days after surgery (the prehab protocol's 4 to 7 days is superseded) |
+| Prehab (10/31/2026) | Optional page from the Prehab Protocol; brace and crutch weeks follow the decisions above |
+| Standard protocol Phase II (10/31/2026) | Keep the original: no standing hip abduction isometrics or clamshells; keep "Minimize hip flexion if symptomatic" |
 
 **Still open**
 

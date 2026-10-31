@@ -52,7 +52,7 @@ export const HOME_CARE: InfoSection[] = [
     points: [
       "Raise your leg to chest level whenever possible to decrease swelling.",
       "Walk with crutches, 20 lb weight bearing. The number of weeks depends on your procedure.",
-      "It is safe to bend the hip within the brace limits. Do not bend the hip past 90 degrees (75 degrees after a revision or reconstruction).",
+      "It is safe to bend the hip within the brace limits. Do not bend the hip past 90 degrees (75 degrees after a Labral Revision or Reconstruction).",
       "Do ankle pumps continuously throughout the day.",
       "Avoid activities that increase hip pain, such as long periods of standing or walking.",
       "Avoid long periods of sitting or long-distance travel for 2 weeks after surgery.",

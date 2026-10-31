@@ -18,7 +18,7 @@ export const PRACTICE = {
 } as const;
 
 export const AUDIENCE_STATEMENT =
-  "This site is for patients who are scheduled for hip arthroscopy with Dr. Gombera.";
+  "This site is for patients who are scheduled for Hip Arthroscopy with Dr. Gombera.";
 
 export const DISCLAIMER =
   "General education only. It does not replace advice from your care team. In an emergency, go to the nearest emergency room.";

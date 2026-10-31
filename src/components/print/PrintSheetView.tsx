@@ -1,5 +1,6 @@
 "use client";
 
+import { procedureLabel } from "@/lib/procedures";
 import Link from "next/link";
 import { useState } from "react";
 import { addDays } from "date-fns";
@@ -31,9 +32,9 @@ import { PRACTICE } from "@/lib/site";
 // button); on paper only the light-themed sheet prints, sized for letter.
 
 const PROC_LABEL: Record<ProtocolId, string> = {
-  standard: "Standard: labral repair and osteoplasty",
-  revision: "Revision or labral reconstruction",
-  glute: "With gluteus medius repair",
+  standard: procedureLabel("standard"),
+  revision: procedureLabel("revision"),
+  glute: procedureLabel("glute"),
 };
 
 function List({ items }: { items: string[] }) {

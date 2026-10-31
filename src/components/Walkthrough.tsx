@@ -5,14 +5,15 @@ import { addDays } from "date-fns";
 import type { ProtocolId } from "@/content";
 import { clearProfile, saveSetup } from "@/lib/profile";
 import { toISO } from "@/lib/recovery";
+import { procedureLabel } from "@/lib/procedures";
 
 // One tap sets an example surgery date and procedure on this device, then
 // opens the page to review. Checkpoint days come from scope section 10.
 
 const PROCS: { id: ProtocolId; label: string }[] = [
-  { id: "standard", label: "Standard" },
-  { id: "revision", label: "Revision or reconstruction" },
-  { id: "glute", label: "Gluteus medius repair" },
+  { id: "standard", label: procedureLabel("standard") },
+  { id: "revision", label: procedureLabel("revision") },
+  { id: "glute", label: procedureLabel("glute") },
 ];
 
 const BEFORE = [

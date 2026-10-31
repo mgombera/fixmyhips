@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Fix My Hips",
   },
   description:
-    "Your personal guide before and after hip arthroscopy with Dr. Mufaddal Gombera: what to do today, your recovery timeline, exercises and when to call.",
+    "Your personal guide before and after Hip Arthroscopy with Dr. Mufaddal Gombera: what to do today, your recovery timeline, exercises and when to call.",
   alternates: { canonical: "/" },
 };
 
