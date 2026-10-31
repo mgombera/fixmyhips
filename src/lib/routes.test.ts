@@ -25,6 +25,6 @@ describe("site map", () => {
   });
 
   it("uses no em dashes in route copy", () => {
-    for (const r of ROUTES) expect(r.title + r.summary).not.toMatch(/—/);
+    for (const r of ROUTES) expect(r.title + r.summary).not.toMatch(/\u2014/);
   });
 });
