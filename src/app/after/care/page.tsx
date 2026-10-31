@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HOME_CARE, MEDICATION_NOTICE, MEDICATION_TIPS, STANDARD_MEDICATIONS } from "@/content";
-import { Bullets, Card, Container, PageHeader, Reviewed, SectionTitle } from "@/components/ui";
+import { Bullets, Card, Container, PageHeader, SectionTitle } from "@/components/ui";
 import { AlertIcon } from "@/components/icons";
 import { routeInfo } from "@/lib/routes";
 
@@ -57,7 +57,6 @@ export default function CarePage() {
           </Card>
         </div>
       </section>
-      <Reviewed />
     </Container>
   );
 }

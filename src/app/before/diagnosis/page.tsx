@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DIAGNOSIS, OUTCOMES } from "@/content";
 import { CamImaging, HipIllustrations } from "@/components/CamImaging";
-import { Bullets, Card, Container, PageHeader, Reviewed, SectionTitle } from "@/components/ui";
+import { Bullets, Card, Container, PageHeader, SectionTitle } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 
 const r = routeInfo("/before/diagnosis");
@@ -86,7 +86,6 @@ export default function DiagnosisPage() {
           </div>
         </details>
       </section>
-      <Reviewed />
     </Container>
   );
 }

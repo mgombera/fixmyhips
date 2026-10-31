@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { FaqList } from "@/components/FaqList";
-import { Container, PageHeader, Reviewed } from "@/components/ui";
+import { Container, PageHeader } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 import { FAQ } from "@/content";
 
@@ -22,7 +22,6 @@ export default function FaqPage() {
       <div className="mt-8">
         <FaqList />
       </div>
-      <Reviewed />
     </Container>
   );
 }

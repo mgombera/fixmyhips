@@ -1,5 +1,3 @@
-import { CONTENT_REVIEWED_ON } from "@/content";
-
 // Small shared building blocks for content pages.
 
 export function PageHeader({ eyebrow, title, intro }: { eyebrow?: string; title: React.ReactNode; intro?: React.ReactNode }) {
@@ -32,11 +30,6 @@ export function Bullets({ items }: { items: string[] }) {
       ))}
     </ul>
   );
-}
-
-export function Reviewed() {
-  if (!CONTENT_REVIEWED_ON) return null;
-  return <p className="mt-10 mb-0 text-sm text-muted">Reviewed by Dr. Gombera {CONTENT_REVIEWED_ON}.</p>;
 }
 
 export function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {

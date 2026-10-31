@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Timeline } from "@/components/Timeline";
-import { Container, PageHeader, Reviewed } from "@/components/ui";
+import { Container, PageHeader } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 
 const r = routeInfo("/after/timeline");
@@ -17,7 +17,6 @@ export default function TimelinePage() {
       <div className="mt-8">
         <Timeline />
       </div>
-      <Reviewed />
     </Container>
   );
 }

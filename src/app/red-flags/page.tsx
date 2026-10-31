@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CALL_NOW, CALL_NUMBERS, USUALLY_NORMAL } from "@/content";
 import { AlertIcon, PhoneIcon } from "@/components/icons";
-import { Container, PageHeader, Reviewed } from "@/components/ui";
+import { Container, PageHeader } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 import { PRACTICE } from "@/lib/site";
 
@@ -59,7 +59,6 @@ export default function RedFlagsPage() {
           ))}
         </ul>
       </section>
-      <Reviewed />
     </Container>
   );
 }
