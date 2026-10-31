@@ -11,9 +11,9 @@ export * from "./learn";
 
 /**
  * Date Dr. Gombera signed off the clinical content (MM/DD/YYYY).
- * null until Gate 1 is approved. Shown as "Reviewed" on every page.
+ * Gate 1 approved by Dr. Gombera on 10/30/2026, including the 6 derived items. Update this date whenever clinical content changes and is re-approved.
  */
-export const CONTENT_REVIEWED_ON: string | null = null;
+export const CONTENT_REVIEWED_ON: string | null = "10/30/2026";
 
 export const SOURCES: Record<SourceId, string> = {
   "pt-standard": "PT protocol: hip arthroscopy, osteoplasty and labral repair (athletes)",
