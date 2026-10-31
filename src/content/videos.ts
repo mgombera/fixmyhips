@@ -86,6 +86,9 @@ const T = titles as Record<string, { title?: string; channel?: string }>;
 
 export const VIDEOS: Video[] = RAW.map((v) => ({ approvedOn: VIDEOS_APPROVED_ON, ...v, ...T[v.youtubeId] }));
 
+/** Shown under every video. The full VIDEO_NOTICE appears at the top of each video page. */
+export const VIDEO_CAPTION = "These videos are only a suggestion and are not formal medical advice.";
+
 export const VIDEO_NOTICE =
   "These videos are only a suggestion and are not formal medical advice. The program from your therapist takes precedence, and all exercises should be done under your therapist's observation.";
 

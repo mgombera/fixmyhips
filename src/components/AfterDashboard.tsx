@@ -4,7 +4,10 @@ import Link from "next/link";
 import { DATES_ARE_ESTIMATES, HOME_PROGRAM, PT_OVERRIDE_NOTICE, exerciseById } from "@/content";
 import { dashboardModel } from "@/lib/dashboard";
 import { toggleExercise, useHydrated, useProfile } from "@/lib/profile";
+import { addDays } from "date-fns";
 import { formatUS, fromISO } from "@/lib/recovery";
+
+const EXAMPLE_DAY = 18;
 import { AlertIcon } from "./icons";
 
 function Notice({ children }: { children: React.ReactNode }) {
@@ -21,55 +24,40 @@ export function AfterDashboard() {
   const profile = useProfile();
   if (!hydrated) return <div className="min-h-96" aria-busy="true" />;
 
-  const d = profile?.surgeryDate ? fromISO(profile.surgeryDate) : null;
-  if (!profile || !d) {
-    return (
-      <div className="flex flex-col gap-6">
-        <h1 className="m-0 font-display text-6xl font-extrabold uppercase leading-[0.9] sm:text-8xl">Your recovery</h1>
-        <div className="rounded-xl border border-accent bg-surface p-5">
-          <strong>Add your surgery date to see your day, phase and this week&apos;s exercises.</strong>{" "}
-          <Link href={profile ? "/?setup=1" : "/"} className="font-semibold underline underline-offset-2">
-            {profile ? "Add your date" : "Set up your plan"}
-          </Link>
-          <p className="mt-3 mb-0 text-muted">
-            Meanwhile, see the{" "}
-            <Link href="/after/timeline" className="underline">
-              recovery timeline
-            </Link>{" "}
-            and{" "}
-            <Link href="/after/care" className="underline">
-              home care instructions
-            </Link>
-            .
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   const today = new Date();
-  const m = dashboardModel(d, today, profile.procedure);
-  if (!m) {
-    return (
-      <div className="flex flex-col gap-6">
-        <h1 className="m-0 font-display text-6xl font-extrabold uppercase leading-[0.9] sm:text-8xl">Not yet</h1>
-        <div className="rounded-xl border border-accent bg-surface p-5">
-          <strong>Your surgery is on {formatUS(d)}.</strong>{" "}
-          <Link href="/before" className="font-semibold underline underline-offset-2">
-            Go to your pre-surgery checklist
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const realDate = profile?.surgeryDate ? fromISO(profile.surgeryDate) : null;
+  const realModel = realDate && profile ? dashboardModel(realDate, today, profile.procedure) : null;
+  // No date yet, or surgery still ahead: show a labeled example (day 18, standard protocol).
+  const example = !realModel;
+  const d = example ? addDays(today, -EXAMPLE_DAY) : realDate!;
+  const m = realModel ?? dashboardModel(d, today, "standard")!;
+  const exampleReason = !profile
+    ? { text: "Add your surgery date to see your own day, phase and exercises.", href: "/", cta: "Set up your plan" }
+    : !realDate
+      ? { text: "Add your surgery date to see your own day, phase and exercises.", href: "/?setup=1", cta: "Add your date" }
+      : { text: `Your surgery is on ${formatUS(realDate)}. Until then, use your pre-surgery checklist.`, href: "/before", cta: "Go to your checklist" };
 
-  const ticked = new Set(profile.exercises[`week-${m.week}`] ?? []);
+  const ticked = new Set(example ? [] : (profile?.exercises[`week-${m.week}`] ?? []));
   const session = [...m.newThisWeek.map((id) => ({ id, isNew: true })), ...m.continuing.map((id) => ({ id, isNew: false }))];
   const done = session.filter((s) => ticked.has(s.id)).length;
   const totalWeeks = m.phases.reduce((n, p) => n + p.weeks, 0);
 
   return (
     <div className="flex flex-col gap-8">
+      {example && (
+        <div role="note" className="flex flex-col gap-2 rounded-xl border-2 border-accent bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="m-0">
+            <strong>Example: this is what your dashboard looks like on day {EXAMPLE_DAY}</strong> (standard protocol).{" "}
+            {exampleReason.text}
+          </p>
+          <Link
+            href={exampleReason.href}
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-md bg-accent px-5 font-bold text-accent-ink no-underline"
+          >
+            {exampleReason.cta}
+          </Link>
+        </div>
+      )}
       {/* Day and phase */}
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div className="flex flex-col gap-1">
@@ -164,6 +152,7 @@ export function AfterDashboard() {
                       id={cid}
                       type="checkbox"
                       checked={ticked.has(id)}
+                      disabled={example}
                       onChange={(ev) => toggleExercise(m.week, id, ev.target.checked)}
                       className="h-6 w-6 shrink-0 accent-[var(--accent)]"
                     />

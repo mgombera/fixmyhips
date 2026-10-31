@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { VIDEO_CAPTION } from "@/content";
 import type { Video } from "@/content";
 
 // Click-to-load YouTube embed. Nothing is requested from YouTube (not even a
@@ -8,8 +9,10 @@ import type { Video } from "@/content";
 export function VideoPlayer({ video }: { video: Video }) {
   const [playing, setPlaying] = useState(false);
   const title = video.title ?? "Exercise video";
+  const caption = <p className="m-0 mt-1.5 text-xs text-muted">{VIDEO_CAPTION}</p>;
   if (playing) {
     return (
+      <div>
       <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
         <iframe
           className="absolute inset-0 h-full w-full"
@@ -19,9 +22,12 @@ export function VideoPlayer({ video }: { video: Video }) {
           allowFullScreen
         />
       </div>
+      {caption}
+      </div>
     );
   }
   return (
+    <div>
     <button
       type="button"
       onClick={() => setPlaying(true)}
@@ -34,5 +40,7 @@ export function VideoPlayer({ video }: { video: Video }) {
       <span className="font-semibold">Play: {title}</span>
       {video.channel && <span className="text-sm text-muted">{video.channel} on YouTube</span>}
     </button>
+    {caption}
+    </div>
   );
 }
