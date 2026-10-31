@@ -90,7 +90,7 @@ Sixteen routes. The top bar always shows a Before surgery / After surgery switch
 | /faq | FAQ | All FAQs, searchable, grouped Before and After |
 | /red-flags | When to Call | Normal versus call-now symptoms, office and after-hours numbers, ER guidance |
 | /about | About Dr. Gombera | Headshot, credentials, Hip Preservation Center, link to gomberamd.com |
-| /contact | Contact | Office (713) 794-3457, after hours (713) 799-2300, PreAdmit (713) 794-3525, info@gomberamd.com, Athena patient portal, address |
+| /contact | Contact | Office (713) 794-3457, after hours (713) 799-2300, PreAdmit (713) 395-6607, info@gomberamd.com, Athena patient portal, address |
 | /print | Print Center | Printable checklist, protocol, home care sheet and red-flag card for the selected procedure |
 
 Old v0 routes (/introduction, /pre-op, /day-of-surgery, /post-op, /additional-info, /faq, /videos) redirect with 301s to their new equivalents, in case patients saved links.

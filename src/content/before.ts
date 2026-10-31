@@ -21,9 +21,9 @@ export const CHECKLIST: ChecklistItem[] = [
     block: "now",
     title: "Complete PreAdmit testing (mandatory)",
     detail:
-      "PreAdmit is required for clearance to receive anesthesia. It is on the 3rd floor of Texas Orthopedic Hospital, where the nursing and anesthesiology teams will interview you and order any tests needed, such as blood tests or an EKG. Complete it within 30 days of surgery and at least one week before. Call (713) 794-3525 to schedule, or walk in 8 a.m. to 5 p.m., Monday through Friday.",
+      "PreAdmit is required for clearance to receive anesthesia. It is on the 3rd floor of Texas Orthopedic Hospital, where the nursing and anesthesiology teams will interview you and order any tests needed, such as blood tests or an EKG. Complete it within 30 days of surgery and at least one week before. Call (713) 395-6607 to schedule, or walk in 8 a.m. to 5 p.m., Monday through Friday.",
     dueOffsetDays: -7,
-    link: { label: "Call PreAdmit (713) 794-3525", href: "tel:+17137943525" },
+    link: { label: "Call PreAdmit (713) 395-6607", href: "tel:+17133956607" },
     source: ["preop-letter"],
   },
   {

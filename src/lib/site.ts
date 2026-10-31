@@ -10,7 +10,7 @@ export const PRACTICE = {
   mapUrl: "https://www.google.com/maps/search/?api=1&query=7401+Main+St+Houston+TX+77030",
   office: { label: "(713) 794-3457", tel: "+17137943457" },
   afterHours: { label: "(713) 799-2300", tel: "+17137992300" },
-  preAdmit: { label: "(713) 794-3525", tel: "+17137943525" },
+  preAdmit: { label: "(713) 395-6607", tel: "+17133956607" },
   email: "info@gomberamd.com",
   portalUrl: "https://15533-8.portal.athenahealth.com",
   consultUrl: "https://www.gomberamd.com/",
