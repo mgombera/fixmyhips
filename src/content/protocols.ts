@@ -163,18 +163,25 @@ export const STANDARD: Protocol = {
         "Normalize walking pattern",
         "Begin closed chain and weight shift exercises",
         "Continue Phase I exercises as appropriate",
-        "Minimize hip flexion if symptomatic",
       ],
       weeks: [
         {
           fromWeek: 4,
           toWeek: 4,
-          exerciseIds: ["upright-bike", "bridge-abduction", "half-kneel-weight-shift", "half-kneel-row", "hip-hikes"],
+          exerciseIds: [
+            "upright-bike",
+            "bridge-abduction",
+            "half-kneel-weight-shift",
+            "half-kneel-row",
+            "standing-abduction-isometric",
+            "hip-hikes",
+          ],
         },
         {
           fromWeek: 5,
           toWeek: 5,
           exerciseIds: [
+            "clamshell",
             "standing-weight-shifts",
             "single-leg-stance",
             "fire-hydrant",

@@ -17,7 +17,7 @@ export * from "./print";
 export const CONTENT_REVIEWED_ON: string | null = "10/30/2026";
 
 export const SOURCES: Record<SourceId, string> = {
-  "pt-standard": "PT protocol: hip arthroscopy, osteoplasty and labral repair (athletes)",
+  "pt-standard": "PT protocol: hip arthroscopy, osteoplasty and labral repair (athletes), corrected version 10/31/2026",
   "pt-revision": "PT protocol: labral revision repair or reconstruction",
   "pt-glute": "PT protocol: hip arthroscopy with gluteus medius repair",
   discharge: "Post-operative instruction checklist (discharge sheet)",
