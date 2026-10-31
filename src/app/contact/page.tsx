@@ -59,7 +59,7 @@ export default function ContactPage() {
       </div>
       <p className="mt-8 mb-0">
         Emergency? Go to the nearest emergency room. Worried about a symptom?{" "}
-        <Link href="/red-flags" className="underline underline-offset-2">See when to call</Link>.
+        <Link href="/after/when-to-call" className="underline underline-offset-2">See when to call</Link>.
       </p>
     </Container>
   );

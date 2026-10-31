@@ -13,13 +13,13 @@ export default function CarePage() {
     <Container className="py-10">
       <PageHeader eyebrow="After surgery" title="Home care" intro="Dressing, showering, ice, brace, activity, driving, work and medications." />
 
-      <Link
-        href="/red-flags"
-        className="mt-8 flex min-h-14 items-center gap-3 rounded-xl border-2 border-alert bg-alert-surface p-4 font-semibold text-alert no-underline"
-      >
-        <AlertIcon className="shrink-0" />
-        Fever over 101°F, calf pain, or pain that will not let up? See when to call.
-      </Link>
+      <p className="mt-6 mb-0 text-sm text-muted">
+        Questions about a symptom?{" "}
+        <Link href="/after/when-to-call" className="font-semibold underline underline-offset-2">
+          See when to call
+        </Link>
+        .
+      </p>
 
       <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-x-4 gap-y-1">
         {[...HOME_CARE.map((s) => ({ id: s.id, title: s.title })), { id: "medications", title: "Medications" }].map((s) => (
