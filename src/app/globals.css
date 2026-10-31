@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/*
+  Design tokens (scope section 2).
+  Dark navy is the default; a light theme follows the user's system setting
+  and is always used for printing.
+*/
+:root {
+  --bg: #10152a;
+  --surface: #19213d;
+  --border: #2a3458;
+  --brand: #313e6b;
+  --accent: #4db8ff;
+  --accent-ink: #0b1020;
+  --alert: #ff9b57;
+  --alert-surface: #2a1a10;
+  --text: #e8ecf1;
+  --muted: #a3adc2;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --border: #d5dbe7;
+    --brand: #313e6b;
+    --accent: #1b64a8;
+    --accent-ink: #ffffff;
+    --alert: #b54708;
+    --alert-surface: #fdf1e8;
+    --text: #10152a;
+    --muted: #4a5470;
+    color-scheme: light;
+  }
+}
+
+@media print {
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --border: #c9d0dd;
+    --accent: #1b64a8;
+    --accent-ink: #ffffff;
+    --alert: #b54708;
+    --alert-surface: #ffffff;
+    --text: #000000;
+    --muted: #333a4d;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-alert: var(--alert);
+  --color-alert-surface: var(--alert-surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+
+/* Base rules sit in the base layer so Tailwind utilities can override them. */
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+  }
+
+  a {
+    color: var(--accent);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
