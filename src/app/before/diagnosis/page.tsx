@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DIAGNOSIS, OUTCOMES } from "@/content";
-import { CamImaging } from "@/components/CamImaging";
+import { CamImaging, HipIllustrations } from "@/components/CamImaging";
 import { Bullets, Card, Container, PageHeader, Reviewed, SectionTitle } from "@/components/ui";
 import { routeInfo } from "@/lib/routes";
 
@@ -42,6 +42,11 @@ export default function DiagnosisPage() {
           </Card>
         ))}
       </div>
+
+      <section aria-labelledby="how" className="mt-14 flex flex-col gap-5">
+        <SectionTitle id="how">How impingement works</SectionTitle>
+        <HipIllustrations />
+      </section>
 
       <section aria-labelledby="imaging" className="mt-14 flex flex-col gap-5 scroll-mt-24" id="imaging-section">
         <SectionTitle id="imaging">See it in real surgery</SectionTitle>

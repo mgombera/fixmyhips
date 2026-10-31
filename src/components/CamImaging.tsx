@@ -8,6 +8,64 @@ import { useState } from "react";
 export const IMAGING_COPYRIGHT =
   "Images © 2026 Mufaddal Gombera, MD. All rights reserved. Do not copy or reuse without written permission.";
 
+// Panels cropped from the illustration Dr. Gombera commissioned from Sarrah
+// Hussain (his copyright). Use the panels only, never the full poster.
+export const ILLUSTRATION_COPYRIGHT =
+  "Illustrations © 2025 Mufaddal Gombera, MD, by Sarrah Hussain. All rights reserved. Do not copy or reuse without written permission.";
+
+const PANELS = [
+  {
+    src: "/images/2026-10-31-illustration-normal-hip.jpg",
+    w: 772,
+    h: 618,
+    title: "Normal hip",
+    alt: "Illustration of a normal hip. Labels point to the labrum, the cartilage, the acetabulum (socket), the femur and the pelvis.",
+    caption: "The ball of the femur turns smoothly in the socket. The labrum seals the rim and cartilage lines both surfaces.",
+  },
+  {
+    src: "/images/2026-10-31-illustration-impinged-hip.jpg",
+    w: 835,
+    h: 407,
+    title: "Impinged hip",
+    alt: "Illustration of an impinged hip. Labels point to a pincer bump on the socket rim, a cam bump on the femoral head and a labrum tear.",
+    caption:
+      "Extra bone on the ball (cam) or the socket rim (pincer) pinches the joint as it moves. This can cause pain, cartilage damage and labral tears.",
+  },
+  {
+    src: "/images/2026-10-31-illustration-hip-repair.jpg",
+    w: 889,
+    h: 502,
+    title: "After arthroscopy",
+    alt: "Illustration of the hip after arthroscopy. Labels show the excess bone removed and the labrum repaired with suture anchors.",
+    caption: "The excess bone is removed and the labrum is repaired with suture anchors.",
+  },
+];
+
+export function HipIllustrations() {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="grid gap-5 lg:grid-cols-3">
+        {PANELS.map((p) => (
+          <figure key={p.src} className="m-0 flex flex-col gap-2">
+            <Image
+              src={p.src}
+              alt={p.alt}
+              width={p.w}
+              height={p.h}
+              sizes="(min-width: 1024px) 30vw, 100vw"
+              className="h-auto w-full rounded-xl border border-border"
+            />
+            <figcaption className="text-sm text-muted">
+              <strong className="text-text">{p.title}.</strong> {p.caption}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <p className="m-0 text-xs text-muted">{ILLUSTRATION_COPYRIGHT}</p>
+    </div>
+  );
+}
+
 function Figure({ src, alt, caption }: { src: string; alt: string; caption: React.ReactNode }) {
   return (
     <figure className="m-0 flex flex-col gap-2">

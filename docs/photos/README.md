@@ -21,3 +21,13 @@ Supplied by Dr. Gombera on 10/31/2026 as his own images, identifiers removed. We
 | 2026-10-31-cam-scope-after.jpg | Arthroscopic view after osteoplasty | Your Diagnosis |
 
 Logo: loaded from https://www.gomberamd.com/wp-content/uploads/logo.webp (allowed in `next.config.ts`). Replace with a local vector file if one becomes available.
+
+## Commissioned illustration
+
+"Understanding Hip Impingement & Labral Tears" by Sarrah Hussain, commissioned by Dr. Gombera, who holds the copyright (confirmed 10/31/2026). Use cropped diagram panels only, never the full poster. Each crop carries "© 2025 Mufaddal Gombera, MD. Illustration: Sarrah Hussain."
+
+| File | Panel | Placement |
+| --- | --- | --- |
+| 2026-10-31-illustration-normal-hip.jpg | Normal hip anatomy | Your Diagnosis, "How impingement works" |
+| 2026-10-31-illustration-impinged-hip.jpg | Cam, pincer, labrum tear | Your Diagnosis |
+| 2026-10-31-illustration-hip-repair.jpg | Bone removed, labrum repaired with anchors | Your Diagnosis |
