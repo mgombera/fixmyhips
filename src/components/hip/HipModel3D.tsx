@@ -195,10 +195,15 @@ function Scene({
   }, []);
 
   // Cam bump at the anterosuperior head-neck junction.
+  // Built as a crescent wrapped around the neck (about 120 degrees), filling in the
+  // normal concave "waist" between the head and neck, as on a cam lesion X-ray.
   const cam = v(L.head_neck_junction_anterosuperior);
-  const camOut = cam.clone().projectOnPlane(NECK).normalize();
-  const camQ = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), NECK);
-  const camPos = cam.clone().add(camOut.multiplyScalar(0.0012)).add(NECK.clone().multiplyScalar(-0.002));
+  const camAxial = cam.dot(NECK); // distance along the neck from the head centre
+  const camDir = cam.clone().projectOnPlane(NECK).normalize();
+  const camFrame = new THREE.Matrix4().makeBasis(camDir, NECK.clone().cross(camDir).normalize(), NECK);
+  const camQ = new THREE.Quaternion().setFromRotationMatrix(camFrame);
+  const camPos = NECK.clone().multiplyScalar(camAxial + 0.0015);
+  const CAM_ARC = (120 * Math.PI) / 180;
 
   // Gluteus medius from the outer ilium to the greater trochanter, passing lateral to the joint.
   const gmO = v(L.gluteus_medius_origin);
@@ -250,9 +255,13 @@ function Scene({
           <Part {...p} id="labrum" color={TEAR} geometry={geo.labrumTear} roughness={0.4} />
           <Part {...p} id="pincer" color={BUMP} geometry={geo.pincer} />
           {!hideFemur && (
-            <Part {...p} id="cam" color={BUMP} position={camPos} quaternion={camQ} scale={[0.0042, 0.0065, 0.0042]}>
-              <sphereGeometry args={[1, 32, 24]} />
-            </Part>
+            <group position={camPos} quaternion={camQ}>
+              <group rotation={[0, 0, -CAM_ARC / 2]}>
+                <Part {...p} id="cam" color={BUMP} scale={[1, 1, 1.9]}>
+                  <torusGeometry args={[0.0168, 0.0052, 20, 48, CAM_ARC]} />
+                </Part>
+              </group>
+            </group>
           )}
         </>
       ) : (
