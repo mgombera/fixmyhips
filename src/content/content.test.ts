@@ -36,8 +36,8 @@ describe("protocols", () => {
 
   it("matches the variant table in scope section 4", () => {
     const { standard, revision, glute } = C.PROTOCOLS;
-    expect([standard.weightBearing.weeks, revision.weightBearing.weeks, glute.weightBearing.weeks]).toEqual([3, 6, 6]);
-    expect([standard.braceWeeks, revision.braceWeeks, glute.braceWeeks]).toEqual([4, 6, 4]);
+    expect([standard.weightBearing.weeks, revision.weightBearing.weeks, glute.weightBearing.weeks]).toEqual([3, 6, 4]);
+    expect([standard.braceWeeks, revision.braceWeeks, glute.braceWeeks]).toEqual([4, 6, 6]);
     expect([standard.flexionLimitDeg, revision.flexionLimitDeg, glute.flexionLimitDeg]).toEqual([90, 75, 90]);
     expect([standard.proneLying, revision.proneLying, glute.proneLying]).toEqual([false, true, true]);
     expect([standard.runningAfterMonths, revision.runningAfterMonths, glute.runningAfterMonths]).toEqual([3, 4, 4]);

@@ -31,9 +31,9 @@ const EXPECTED: Record<"standard" | "revision" | "glute", Row[]> = {
     [130, 4, 19, "As tolerated", "Done", "Allowed"],
   ],
   glute: [
-    [1, 1, 1, "20 lb", "27 days", "90°", "prone-lying"],
-    [18, 1, 3, "20 lb", "10 days", "90°", "double-leg-bridge"],
-    [30, 1, 5, "20 lb", "Done", "90°"],
+    [1, 1, 1, "20 lb", "41 days", "90°", "prone-lying"],
+    [18, 1, 3, "20 lb", "24 days", "90°", "double-leg-bridge"],
+    [30, 1, 5, "As tolerated", "12 days", "90°"],
     [45, 2, 7, "As tolerated", "Done", "Allowed"],
     [70, 3, 11, "As tolerated", "Done", "Allowed"],
     [100, 3, 15, "As tolerated", "Done", "Allowed"],

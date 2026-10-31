@@ -211,8 +211,8 @@ export const PREHAB_RESTRICTIONS: InfoSection = {
   title: "Limits to practice for after surgery",
   points: [
     "No sitting with the hip bent past 90 degrees, to avoid hip flexor irritation",
-    "Hip brace when walking and sitting, usually for 4 weeks (6 after a Labral Revision or Reconstruction)",
-    "20 lb weight bearing with a foot-flat pattern on crutches, usually for 3 weeks (6 after a Labral Revision or Reconstruction or a Glute Tendon Repair)",
+    "Hip brace when walking and sitting, usually for 4 weeks (6 after a Labral Revision or Reconstruction or a Glute Tendon Repair)",
+    "20 lb weight bearing with a foot-flat pattern on crutches, usually for 3 weeks (4 after a Glute Tendon Repair, 6 after a Labral Revision or Reconstruction)",
     "Range of motion: abduction to 45 degrees, no extension past 0, internal rotation to neutral, external rotation to 30 degrees",
   ],
   source: ["prehab", "pt-standard", "decisions"],

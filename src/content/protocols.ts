@@ -337,8 +337,9 @@ export const GLUTE: Protocol = {
   title: "Hip Arthroscopy with Glute Tendon Repair",
   shortTitle: "Glute Tendon Repair",
   source: ["pt-glute", "decisions"],
-  weightBearing: { partialLbs: 20, pattern: "foot flat, with crutches", weeks: 6 },
-  braceWeeks: 4,
+  // 4 weeks protected weight bearing and 6 weeks in the brace: Dr. Gombera, 10/31/2026
+  weightBearing: { partialLbs: 20, pattern: "foot flat, with crutches", weeks: 4 },
+  braceWeeks: 6,
   flexionLimitDeg: 90,
   proneLying: true,
   romRestrictions: [
@@ -366,14 +367,19 @@ export const GLUTE: Protocol = {
         "Avoid hip flexor irritation: no sitting with the hip bent past 90 degrees",
         "Control and decrease pain, inflammation and swelling",
         "Avoid scar tissue with passive motion and soft tissue mobilization",
-        "Hip brace when walking for 4 weeks",
-        "20 lb weight bearing, foot flat, for 6 weeks, then weight bearing as tolerated",
+        "Hip brace when walking and sitting for 6 weeks",
+        "20 lb weight bearing, foot flat, for 4 weeks, then weight bearing as tolerated",
         "Lie on your stomach 2 to 3 hours a day",
       ],
       weeks: [
         { fromWeek: 1, toWeek: 1, exerciseIds: [...PHASE_I_WEEK_1, "prone-lying"] },
         { fromWeek: 2, toWeek: 2, exerciseIds: PHASE_I_WEEK_2, notes: ["Continue week 1 exercises"] },
-        { fromWeek: 3, toWeek: 6, exerciseIds: PHASE_I_WEEK_3, notes: ["Continue week 2 exercises"] },
+        {
+          fromWeek: 3,
+          toWeek: 6,
+          exerciseIds: PHASE_I_WEEK_3,
+          notes: ["Continue week 2 exercises", "After week 4, wean from crutches and normalize walking pattern"],
+        },
       ],
       criteriaToProgress: PHASE_I_CRITERIA,
     },
@@ -395,7 +401,6 @@ export const GLUTE: Protocol = {
           fromWeek: 7,
           toWeek: 7,
           exerciseIds: ["upright-bike"],
-          notes: ["Wean from crutches and normalize walking pattern"],
         },
         { fromWeek: 8, toWeek: 8, exerciseIds: ["clamshell", "standing-abduction-isometric"] },
         {
