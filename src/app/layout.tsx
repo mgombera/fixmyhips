@@ -5,6 +5,7 @@ import "@fontsource/barlow-condensed/800.css";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StatusBar } from "@/components/StatusBar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fixmyhips.com"),
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SiteHeader />
+        <StatusBar />
         <main id="main">{children}</main>
         <SiteFooter />
       </body>
