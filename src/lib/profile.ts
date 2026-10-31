@@ -135,6 +135,17 @@ export function toggleChecklist(id: string, value: boolean) {
   write({ ...p, checklist: { ...p.checklist, [id]: value } });
 }
 
+/** Exercise ticks reset each week: stored under the recovery week number. */
+export function toggleExercise(week: number, id: string, value: boolean) {
+  const p = read();
+  if (!p) return;
+  const key = `week-${week}`;
+  const current = new Set(p.exercises[key] ?? []);
+  if (value) current.add(id);
+  else current.delete(id);
+  write({ ...p, exercises: { [key]: [...current] } }); // keep only this week
+}
+
 export function clearProfile() {
   write(null);
   clearPreset();
