@@ -13,7 +13,7 @@ const STATS = [
   { label: "Success rate", value: "85 to 90%" },
   { label: "Pain resolved", value: "80%", note: "15% the same, 5% worse" },
   { label: "Major complication", value: "<1 in 1,000" },
-  { label: "Full recovery", value: "6 to 9 mo", note: "Walking comfortably by 6 to 8 weeks for most" },
+  { label: "Full recovery", value: "6 to 9 mo", note: "Walking comfortably by 6 to 8 weeks for most (8 to 10 after a Glute Tendon Repair)" },
 ];
 
 export default function DiagnosisPage() {

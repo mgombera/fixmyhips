@@ -110,7 +110,7 @@ export const HOME_CARE: InfoSection[] = [
       "Discomfort and stiffness are normal for a few days. Pain may be felt in the hip, lower back, buttock, knee and ankle.",
       "Pain is often worse on day 1 or 2, when swelling peaks.",
       "Swelling and bruising in the groin, buttock and thigh are common, caused by the fluid used during surgery. They improve over the following days.",
-      "Most people walk relatively pain-free 6 to 8 weeks after surgery. Full recovery, and return to elite sport, can take 6 to 9 months or more.",
+      "Most people walk relatively pain-free 6 to 8 weeks after surgery (8 to 10 weeks after a Glute Tendon Repair). Full recovery, and return to elite sport, can take 6 to 9 months or more.",
     ],
     source: ["discharge", "preop-letter"],
   },
