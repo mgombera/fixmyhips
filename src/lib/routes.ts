@@ -22,10 +22,10 @@ export const ROUTES: RouteInfo[] = [
   { path: "/after/timeline", title: "Recovery Timeline", summary: "All four phases of your protocol and what it takes to move on.", mode: "after", milestone: 5 },
   { path: "/after/care", title: "Home Care", summary: "Dressing, showering, ice, brace, activity, driving, work and medications.", mode: "after", milestone: 5 },
   { path: "/after/exercises", title: "Exercise Library", summary: "Every exercise in your protocol, with cues and videos.", mode: "after", milestone: 5 },
+  { path: "/after/when-to-call", title: "When to Call", summary: "Signs after surgery that need a call, what is usually normal, and the numbers to use.", mode: "after", milestone: 6 },
   { path: "/hip", title: "Your Hip", summary: "Explore the hip in 3D and see what was repaired.", mode: "general", milestone: 6 },
   { path: "/videos", title: "Videos", summary: "Videos about Hip Arthroscopy and recovery.", mode: "general", milestone: 6 },
   { path: "/faq", title: "FAQ", summary: "Answers to common questions before and after surgery.", mode: "general", milestone: 6 },
-  { path: "/red-flags", title: "When to Call", summary: "What is normal after surgery and what needs a call right away.", mode: "general", milestone: 6 },
   { path: "/about", title: "About Dr. Gombera", summary: "Your surgeon and the Hip Preservation Center.", mode: "general", milestone: 6 },
   { path: "/contact", title: "Contact", summary: "Office, after-hours, PreAdmit, email and the patient portal.", mode: "general", milestone: 6 },
   { path: "/print", title: "Print Center", summary: "Printable checklists, protocol and home care sheets for your procedure.", mode: "general", milestone: 7 },
@@ -52,4 +52,5 @@ export const LEGACY_REDIRECTS: { source: string; destination: string }[] = [
   { source: "/day-of-surgery", destination: "/before/surgery-day" },
   { source: "/post-op", destination: "/after" },
   { source: "/additional-info", destination: "/after/care" },
+  { source: "/red-flags", destination: "/after/when-to-call" },
 ];

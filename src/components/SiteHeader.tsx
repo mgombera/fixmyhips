@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { PRIMARY_NAV } from "@/lib/routes";
 import { PRACTICE } from "@/lib/site";
-import { PhoneIcon, AlertIcon, MenuIcon, CloseIcon, HomeIcon } from "./icons";
+import { PhoneIcon, MenuIcon, CloseIcon, HomeIcon } from "./icons";
 import { ThemeToggle } from "./ThemeToggle";
 
 function ModeSwitch({ pathname }: { pathname: string }) {
@@ -77,13 +77,6 @@ export function SiteHeader() {
             <PhoneIcon />
             <span className="sr-only sm:not-sr-only">Call</span>
           </a>
-          <Link
-            href="/red-flags"
-            className="inline-flex min-h-11 items-center gap-2 rounded-md border border-alert px-3 font-semibold text-alert no-underline"
-          >
-            <AlertIcon />
-            <span>Red flags</span>
-          </Link>
           <ThemeToggle />
           <button
             type="button"

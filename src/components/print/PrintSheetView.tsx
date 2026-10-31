@@ -172,9 +172,9 @@ function CareSheet() {
 function RedFlagCard() {
   return (
     <div className="flex flex-col gap-4">
-      <section className="flex break-inside-avoid flex-col gap-2 rounded-lg border-2 border-alert p-4">
-        <h2 className="m-0 text-xl font-bold uppercase text-alert">{CALL_NOW.title}</h2>
-        <ul className="m-0 flex list-disc flex-col gap-1.5 pl-5 text-lg font-semibold">
+      <section className="flex break-inside-avoid flex-col gap-2 rounded-lg border border-border p-4">
+        <h2 className="m-0 text-lg font-bold text-brand">{CALL_NOW.title}</h2>
+        <ul className="m-0 flex list-disc flex-col gap-1.5 pl-5">
           {CALL_NOW.points.map((p) => (
             <li key={p}>{p}</li>
           ))}
