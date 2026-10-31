@@ -76,8 +76,9 @@ describe("exercises and videos", () => {
     }
   });
 
-  it("renders no video until approved", () => {
+  it("has an MM/DD/YYYY approval date on every approved video", () => {
     for (const v of C.approvedVideos()) expect(v.approvedOn).toMatch(/^\d{2}\/\d{2}\/\d{4}$/);
+    expect(C.approvedVideos().length).toBe(C.VIDEOS.length); // all approved 10/30/2026
   });
 });
 

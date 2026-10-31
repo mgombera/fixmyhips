@@ -30,6 +30,7 @@ export function ExerciseLibrary() {
     <div className="flex flex-col gap-6">
       <div role="note" className="flex flex-col gap-2 rounded-xl border border-accent bg-surface p-4">
         <p className="m-0 font-semibold">{PT_OVERRIDE_NOTICE}</p>
+        <p className="m-0 font-semibold">{VIDEO_NOTICE}</p>
         <p className="m-0 text-sm text-muted">
           Showing the {protocol.shortTitle.toLowerCase()} protocol. {PROTOCOL_NOTICE}{" "}
           {isDefault && (
@@ -95,7 +96,7 @@ export function ExerciseLibrary() {
                             {videos.map((v) => (
                               <VideoPlayer key={v.id} video={v} />
                             ))}
-                            {videos.some((v) => v.source === "external") && <p className="m-0 text-xs text-muted">{VIDEO_NOTICE}</p>}
+                            <p className="m-0 text-xs text-muted">{VIDEO_NOTICE}</p>
                           </div>
                         ) : (
                           <p className="m-0 text-sm text-muted">Video coming soon. Ask your therapist to show you.</p>

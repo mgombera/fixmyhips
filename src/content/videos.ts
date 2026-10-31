@@ -1,7 +1,8 @@
 import type { Video } from "./types";
 import titles from "./video-titles.json";
 
-// Video registry. Nothing renders until Dr. Gombera sets approvedOn.
+// Video registry. A video renders only with an approvedOn date (all approved 10/30/2026).
+// To withdraw one, give it approvedOn: undefined explicitly.
 // Titles and channels are filled by scripts/fetch-video-titles.mjs (YouTube oEmbed).
 // Exercise picks come from the scope's section 7 search; each still needs review.
 
@@ -78,12 +79,16 @@ const RAW: Video[] = [
   { id: "v-single-leg-hop", youtubeId: "fU6zsyvHg6E", source: "external", topics: ["exercise"] },
 ];
 
+/** All videos approved by Dr. Gombera on 10/30/2026. */
+export const VIDEOS_APPROVED_ON = "10/30/2026";
+
 const T = titles as Record<string, { title?: string; channel?: string }>;
 
-export const VIDEOS: Video[] = RAW.map((v) => ({ ...v, ...T[v.youtubeId] }));
+export const VIDEOS: Video[] = RAW.map((v) => ({ approvedOn: VIDEOS_APPROVED_ON, ...v, ...T[v.youtubeId] }));
 
 export const VIDEO_NOTICE =
-  "Videos from outside sources are shown for demonstration. Follow your own limits and your therapist's instructions.";
+  "These videos are only a suggestion and are not formal medical advice. The program from your therapist takes precedence, and all exercises should be done under your therapist's observation.";
+
 
 export function approvedVideos(): Video[] {
   return VIDEOS.filter((v) => Boolean(v.approvedOn));
