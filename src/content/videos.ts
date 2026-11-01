@@ -89,8 +89,8 @@ export const VIDEOS: Video[] = RAW.map((v) => ({ approvedOn: VIDEOS_APPROVED_ON,
 /** Shown under every video. The full VIDEO_NOTICE appears at the top of each video page. */
 export const VIDEO_CAPTION = "These videos are only a suggestion and are not formal medical advice.";
 
-export const VIDEO_NOTICE =
-  "These videos are only a suggestion and are not formal medical advice. The program from your therapist takes precedence, and all exercises should be done under your therapist's observation.";
+// Shortened 11/01/2026 when the exercise videos were removed (Dr. Gombera).
+export const VIDEO_NOTICE = "These videos are only a suggestion and are not formal medical advice.";
 
 
 export function approvedVideos(): Video[] {
