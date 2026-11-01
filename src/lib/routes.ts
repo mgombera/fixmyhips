@@ -18,7 +18,7 @@ export const ROUTES: RouteInfo[] = [
   { path: "/before/diagnosis", title: "Your Diagnosis", summary: "Impingement, labral tears and dysplasia, why surgery is recommended, and the numbers to know.", mode: "before", milestone: 4 },
   { path: "/before/prehab", title: "Prehab", summary: "Optional physical therapy for 2 weeks before surgery: core and glute strength, crutch practice and your post-op limits.", mode: "before", milestone: 8 },
   { path: "/before/add-ons", title: "Biologic Add-ons", summary: "PRP, stem cell and connective tissue matrix options. Not covered by insurance. Call for pricing.", mode: "before", milestone: 4 },
-  { path: "/after", title: "Recovery Dashboard", summary: "Your day, phase and week, today's session and what unlocks next.", mode: "after", milestone: 5 },
+  { path: "/after", title: "Recovery Dashboard", summary: "Your day, phase and week, and what unlocks next.", mode: "after", milestone: 5 },
   { path: "/after/timeline", title: "Recovery Timeline", summary: "All four phases of your protocol and what it takes to move on.", mode: "after", milestone: 5 },
   { path: "/after/care", title: "Home Care", summary: "Dressing, showering, ice, brace, activity, driving, work and medications.", mode: "after", milestone: 5 },
   { path: "/after/when-to-call", title: "When to Call", summary: "Signs after surgery that need a call, what is usually normal, and the numbers to use.", mode: "after", milestone: 6 },

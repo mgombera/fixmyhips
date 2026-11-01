@@ -34,7 +34,7 @@ const STAGES = [
   {
     href: "/after",
     title: "After surgery",
-    text: "Your day and phase, this week's exercises, what unlocks next, timeline and home care.",
+    text: "Your day and phase, what unlocks next, home care and your recovery timeline.",
   },
 ];
 
