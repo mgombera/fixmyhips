@@ -60,6 +60,16 @@ export const CHECKLIST: ChecklistItem[] = [
     source: ["preop-letter", "decisions"],
   },
   {
+    id: "myhealthtrack",
+    block: "week-before",
+    title: "Optional: set up myHealthTrack",
+    detail:
+      "If you would like a guided home program alongside physical therapy, set up the myHealthTrack app before surgery and choose your Hip pathway.",
+    link: { label: "About the home program", href: "/after/home-program" },
+    source: ["myhealthtrack"],
+    derived: true,
+  },
+  {
     id: "fasting",
     block: "night-before",
     title: "Nothing to eat or drink after midnight",

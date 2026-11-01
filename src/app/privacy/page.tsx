@@ -27,6 +27,10 @@ const POINTS: { title: string; text: string }[] = [
     text: "Videos are hosted on YouTube. Nothing loads from YouTube until you tap play, and then the privacy-enhanced youtube-nocookie.com player is used. YouTube's own privacy policy applies once a video plays.",
   },
   {
+    title: "myHealthTrack",
+    text: "The optional myHealthTrack home program is a separate app with its own account and privacy policy. Nothing you enter on this website is shared with it.",
+  },
+  {
     title: "Contacting us",
     text: "Phone calls, email and the patient portal are handled by our office under its usual privacy practices, separate from this website.",
   },

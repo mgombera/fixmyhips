@@ -96,6 +96,13 @@ export function Timeline() {
       <p className="m-0 text-sm text-muted">
         {DATES_ARE_ESTIMATES} {HOME_PROGRAM}
       </p>
+      <p className="m-0 text-sm">
+        Prefer a guided home program?{" "}
+        <Link href="/after/home-program" className="font-semibold underline underline-offset-2">
+          See myHealthTrack
+        </Link>
+        .
+      </p>
     </div>
   );
 }

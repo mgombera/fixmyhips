@@ -143,3 +143,49 @@ export const MEDICATION_TIPS: InfoSection = {
   ],
   source: ["discharge", "preop-letter"],
 };
+
+// Optional guided home program (myHealthTrack flyer, supplied 11/01/2026).
+// Neutral wording: no savings claims; cost questions go to the office.
+export const MHT_LINK = "https://mht.link/fondren2";
+
+export const MHT_INTRO =
+  "myHealthTrack is an app Dr. Gombera's practice uses for guided recovery at home. It works on your phone or in a web browser, any time of day.";
+
+export const MHT_NOTICE =
+  "myHealthTrack does not replace your surgeon's protocol or your physical therapist. If anything in the app differs from your printed protocol or your therapist's instructions, follow your protocol and your therapist.";
+
+export const MHT_TIERS: InfoSection[] = [
+  {
+    id: "mht-educate",
+    title: "Free: learn about your recovery",
+    points: ["Educational videos on your procedure", "A phase-by-phase recovery timeline", "Answers to common questions"],
+    source: ["myhealthtrack"],
+  },
+  {
+    id: "mht-resources",
+    title: "Free: resources for success",
+    points: [
+      "A care plan with milestones and goals",
+      "Guided habit coaching: nutrition and hydration, sleep and mindset",
+      "Weekly doctor's notes to help keep you on track",
+    ],
+    source: ["myhealthtrack"],
+  },
+  {
+    id: "mht-premium",
+    title: "Premium: rehab anywhere, any time",
+    points: [
+      "A home rehab program built to match your surgeon's protocol and restrictions",
+      "Video-guided exercises with clear reps and progressions",
+      "Ask our office about cost and whether it can replace any in-person therapy visits",
+    ],
+    source: ["myhealthtrack"],
+  },
+];
+
+/** Which myHealthTrack pathway to choose, by procedure. */
+export const MHT_PATHWAYS: { procedure: string; pathway: string }[] = [
+  { procedure: "Hip Arthroscopy, Osteoplasty and Labral Repair", pathway: "Hip Arthroscopy and Labral Repair" },
+  { procedure: "Hip Arthroscopy with Glute Tendon Repair", pathway: "Hip Arthroscopy w/Gluteus Medius Repair" },
+  { procedure: "Labral Revision or Reconstruction", pathway: "Ask our office which pathway to use" },
+];

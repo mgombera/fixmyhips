@@ -23,6 +23,7 @@ export const SOURCES: Record<SourceId, string> = {
   discharge: "Post-operative instruction checklist (discharge sheet)",
   "preop-letter": "What to Expect from your Hip Arthroscopy Surgery (pre-op letter)",
   prehab: "Preoperative Rehabilitation (Prehab) Protocol for Hip Arthroscopy Patients",
+  myhealthtrack: "myHealthTrack flyer: Dr. Gombera Recovery Pathways",
   decisions: "Dr. Gombera's decisions, 10/30/2026",
   "old-site-faq": "FAQ on the original site",
 };

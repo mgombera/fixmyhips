@@ -456,6 +456,7 @@ How to hand this to Claude Code: give it this document, the three PT protocols, 
 | Prehab (10/31/2026) | Optional page from the Prehab Protocol; brace and crutch weeks follow the decisions above |
 | Glute Tendon Repair weight bearing and brace (10/31/2026) | 20 lb protected weight bearing for 4 weeks; brace for 6 weeks (supersedes the glute PT protocol's 6 and 4) |
 | Glute Tendon Repair recovery and letter (10/31/2026) | Walking relatively pain-free at 8 to 10 weeks; full activities at 6 to 9 months for all procedures; desk work 4 to 7 days for all; prescriptions called in to the pharmacy; complications: minor up to 5%, serious under 1% |
+| myHealthTrack (11/01/2026) | Optional Home program tab (Option 2) linking to mht.link/fondren2; neutral wording, no savings claims; therapist and printed protocol come first |
 | Standard protocol Phase II (10/31/2026) | Keep the original: no standing hip abduction isometrics or clamshells; keep "Minimize hip flexion if symptomatic" |
 
 **Still open**

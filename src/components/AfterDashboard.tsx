@@ -126,6 +126,12 @@ export function AfterDashboard() {
             ))}
           </ol>
           <p className="m-0 text-sm text-muted">{DATES_ARE_ESTIMATES}</p>
+          <p className="m-0 text-sm">
+            Optional guided home program:{" "}
+            <Link href="/after/home-program" className="font-semibold underline underline-offset-2">
+              myHealthTrack
+            </Link>
+          </p>
         </section>
       </div>
     </div>
