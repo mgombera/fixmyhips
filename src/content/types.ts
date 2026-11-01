@@ -8,6 +8,7 @@ export type SourceId =
   | "preop-letter" // What to Expect from your Hip Arthroscopy Surgery
   | "decisions" // Dr. Gombera's decisions, 10/30/2026 (scope section 11)
   | "prehab" // Preoperative Rehabilitation (Prehab) Protocol for Hip Arthroscopy Patients
+  | "myhealthtrack" // myHealthTrack flyer (Dr. Gombera Recovery Pathways), supplied 11/01/2026
   | "old-site-faq"; // FAQ on the original v0 site
 
 export type Sourced = {

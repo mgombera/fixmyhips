@@ -21,6 +21,7 @@ export const ROUTES: RouteInfo[] = [
   { path: "/after", title: "Recovery Dashboard", summary: "Your day, phase and week, and what unlocks next.", mode: "after", milestone: 5 },
   { path: "/after/timeline", title: "Recovery Timeline", summary: "All four phases of your protocol and what it takes to move on.", mode: "after", milestone: 5 },
   { path: "/after/care", title: "Home Care", summary: "Dressing, showering, ice, brace, activity, driving, work and medications.", mode: "after", milestone: 5 },
+  { path: "/after/home-program", title: "Home Program", summary: "Optional guided home program in the myHealthTrack app: which pathway to choose and how to start.", mode: "after", milestone: 9 },
   { path: "/after/when-to-call", title: "When to Call", summary: "Signs after surgery that need a call, what is usually normal, and the numbers to use.", mode: "after", milestone: 6 },
   { path: "/hip", title: "Your Hip", summary: "Explore the hip in 3D and see what was repaired.", mode: "general", milestone: 6 },
   { path: "/videos", title: "Videos", summary: "Videos about Hip Arthroscopy and recovery.", mode: "general", milestone: 6 },
