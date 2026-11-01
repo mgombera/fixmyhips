@@ -87,12 +87,6 @@ export function Timeline() {
                       {ph.n === 4 ? HOME_PROGRAM : "Your therapist decides when you are ready for the next phase."}
                     </p>
                   )}
-                  <Link
-                    href={`/after/exercises#phase-${ph.n}`}
-                    className="mt-3 inline-flex min-h-11 items-center font-semibold underline underline-offset-2"
-                  >
-                    Phase {ph.n} exercises
-                  </Link>
                 </div>
               </div>
             </li>

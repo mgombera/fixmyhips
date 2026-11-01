@@ -167,12 +167,6 @@ export function AfterDashboard() {
                         })()}
                       </span>
                     </label>
-                    <Link
-                      href={`/after/exercises#${id}`}
-                      className="inline-flex min-h-11 shrink-0 items-center px-2 text-sm font-semibold underline underline-offset-2"
-                    >
-                      How to
-                    </Link>
                   </li>
                 );
               })}

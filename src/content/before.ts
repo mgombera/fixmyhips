@@ -27,12 +27,21 @@ export const CHECKLIST: ChecklistItem[] = [
     source: ["preop-letter"],
   },
   {
-    id: "anesthesia-history",
-    block: "now",
-    title: "Tell the anesthesia team your history",
+    id: "driver",
+    block: "week-before",
+    title: "Arrange a ride home and help at home",
     detail:
-      "If you are prone to nausea or vomiting after anesthesia, or have had complications with anesthesia, let the anesthesia team know.",
-    source: ["preop-letter"],
+      "Surgery is usually outpatient, so you go home the same day, and you cannot drive while taking narcotic pain medication.",
+    source: ["preop-letter", "discharge"],
+    derived: true,
+  },
+  {
+    id: "time-off",
+    block: "week-before",
+    title: "Plan time off work or school",
+    detail:
+      "Most people return to desk work or school 4 to 7 days after surgery, if pain allows. Heavy lifting usually takes 3 to 6 months.",
+    source: ["discharge", "preop-letter", "decisions"],
   },
   {
     id: "cold-therapy",
@@ -49,23 +58,6 @@ export const CHECKLIST: ChecklistItem[] = [
     detail:
       "PRP, stem cell or connective tissue matrix treatment can be added during surgery. It is not covered by insurance. Call the office for pricing before surgery day.",
     source: ["preop-letter", "decisions"],
-  },
-  {
-    id: "driver",
-    block: "week-before",
-    title: "Arrange a ride home and help at home",
-    detail:
-      "Surgery is usually outpatient, so you go home the same day, and you cannot drive while taking narcotic pain medication.",
-    source: ["preop-letter", "discharge"],
-    derived: true,
-  },
-  {
-    id: "time-off",
-    block: "week-before",
-    title: "Plan time off work or school",
-    detail:
-      "Most people return to desk work or school 4 to 7 days after surgery, if pain allows. Heavy lifting usually takes 3 to 6 months.",
-    source: ["discharge", "preop-letter", "decisions"],
   },
   {
     id: "fasting",
