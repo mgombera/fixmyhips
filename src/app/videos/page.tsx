@@ -11,7 +11,6 @@ export const metadata: Metadata = { title: r.title, description: r.summary, alte
 export default function VideosPage() {
   const videos = approvedVideos();
   const fromDr = videos.filter((v) => v.source === "dr-gombera");
-  const recovery = videos.filter((v) => v.source === "external" && v.topics.includes("recovery"));
 
   return (
     <>
@@ -21,7 +20,7 @@ export default function VideosPage() {
         <Container className="flex flex-col gap-3 py-14">
           <p className="m-0 text-sm font-semibold uppercase tracking-widest text-muted">Watch</p>
           <h1 className="m-0 font-display text-6xl font-extrabold uppercase leading-[0.9] sm:text-8xl">Videos</h1>
-          <p className="m-0 max-w-2xl text-lg">Hip Arthroscopy explained, a patient&apos;s story, and exercises after surgery.</p>
+          <p className="m-0 max-w-2xl text-lg">Hip Arthroscopy explained and a patient&apos;s story.</p>
         </Container>
       </section>
       <Container className="flex flex-col gap-12 py-10">
@@ -36,16 +35,6 @@ export default function VideosPage() {
               <div key={v.id} className="flex flex-col gap-2">
                 <VideoPlayer video={v} />
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section aria-labelledby="rec" className="flex flex-col gap-4">
-          <SectionTitle id="rec">Early recovery exercises</SectionTitle>
-          <p className="m-0 text-muted">Overviews from other Hip Arthroscopy programs. Your own protocol and therapist come first.</p>
-          <div className="grid gap-4 md:grid-cols-3">
-            {recovery.map((v) => (
-              <VideoPlayer key={v.id} video={v} />
             ))}
           </div>
         </section>
