@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import { VIDEO_NOTICE, approvedVideos } from "@/content";
 import { VideoPlayer } from "@/components/VideoPlayer";
@@ -13,7 +12,6 @@ export default function VideosPage() {
   const videos = approvedVideos();
   const fromDr = videos.filter((v) => v.source === "dr-gombera");
   const recovery = videos.filter((v) => v.source === "external" && v.topics.includes("recovery"));
-  const exerciseCount = videos.filter((v) => v.topics.includes("exercise")).length;
 
   return (
     <>
@@ -50,19 +48,6 @@ export default function VideosPage() {
               <VideoPlayer key={v.id} video={v} />
             ))}
           </div>
-        </section>
-
-        <section aria-labelledby="ex" className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-5">
-          <SectionTitle id="ex">Exercise by exercise</SectionTitle>
-          <p className="m-0">
-            {exerciseCount} short videos, one for each exercise in your protocol, sorted by phase and week.
-          </p>
-          <Link
-            href="/after/exercises"
-            className="inline-flex min-h-12 items-center self-start rounded-md bg-accent px-5 font-bold text-accent-ink no-underline"
-          >
-            Open the exercise library
-          </Link>
         </section>
       </Container>
     </>

@@ -14,7 +14,7 @@ const LEARN = [
   {
     href: "/videos",
     title: "Videos",
-    text: "Hip Arthroscopy explained, a patient's story, and every exercise after surgery.",
+    text: "Hip Arthroscopy explained, a patient's story, and early recovery exercises.",
     cta: "Watch videos",
   },
   {
