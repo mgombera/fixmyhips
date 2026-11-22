@@ -21,7 +21,7 @@ export default function VideosPage() {
           <p className="m-0 text-sm font-semibold uppercase tracking-widest text-muted">Watch</p>
           <h1 className="m-0 font-display text-6xl font-extrabold uppercase leading-[0.9] sm:text-8xl">Videos</h1>
           <p className="m-0 max-w-2xl text-lg">
-            Hip Arthroscopy explained, a look inside the operating room and a patient&apos;s story.
+            A patient&apos;s story, Hip Arthroscopy explained and a look inside the operating room.
           </p>
         </Container>
       </section>
