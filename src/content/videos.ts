@@ -1,5 +1,6 @@
 import type { Video } from "./types";
 import titles from "./video-titles.json";
+import thumbs from "./video-thumbs.json";
 
 // Video registry. A video renders only with an approvedOn date (approved 10/30/2026 unless set).
 // To withdraw one, give it approvedOn: undefined explicitly.
@@ -116,7 +117,14 @@ export const VIDEOS_APPROVED_ON = "10/30/2026";
 
 const T = titles as Record<string, { title?: string; channel?: string }>;
 
-export const VIDEOS: Video[] = RAW.map((v) => ({ approvedOn: VIDEOS_APPROVED_ON, ...T[v.youtubeId], ...v }));
+const THUMBS = new Set<string>(thumbs as string[]);
+
+export const VIDEOS: Video[] = RAW.map((v) => ({
+  approvedOn: VIDEOS_APPROVED_ON,
+  ...T[v.youtubeId],
+  ...v,
+  thumb: THUMBS.has(v.youtubeId) ? `/video-thumbs/${v.youtubeId}.jpg` : undefined,
+}));
 
 /** Shown under every video. The full VIDEO_NOTICE appears at the top of each video page. */
 export const VIDEO_CAPTION = "These videos are only a suggestion and are not formal medical advice.";
