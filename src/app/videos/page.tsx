@@ -20,7 +20,9 @@ export default function VideosPage() {
         <Container className="flex flex-col gap-3 py-14">
           <p className="m-0 text-sm font-semibold uppercase tracking-widest text-muted">Watch</p>
           <h1 className="m-0 font-display text-6xl font-extrabold uppercase leading-[0.9] sm:text-8xl">Videos</h1>
-          <p className="m-0 max-w-2xl text-lg">Hip Arthroscopy explained and a patient&apos;s story.</p>
+          <p className="m-0 max-w-2xl text-lg">
+            Hip Arthroscopy explained, a look inside the operating room and a patient&apos;s story.
+          </p>
         </Container>
       </section>
       <Container className="flex flex-col gap-12 py-10">
@@ -34,6 +36,7 @@ export default function VideosPage() {
             {fromDr.map((v) => (
               <div key={v.id} className="flex flex-col gap-2">
                 <VideoPlayer video={v} />
+                {v.summary && <p className="m-0">{v.summary}</p>}
               </div>
             ))}
           </div>

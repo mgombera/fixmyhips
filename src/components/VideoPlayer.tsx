@@ -8,7 +8,7 @@ import type { Video } from "@/content";
 // thumbnail) until the patient taps play; then youtube-nocookie.com is used.
 export function VideoPlayer({ video }: { video: Video }) {
   const [playing, setPlaying] = useState(false);
-  const title = video.title ?? "Exercise video";
+  const title = video.title ?? "Video";
   const caption = <p className="m-0 mt-1.5 text-xs text-muted">{VIDEO_CAPTION}</p>;
   if (playing) {
     return (
