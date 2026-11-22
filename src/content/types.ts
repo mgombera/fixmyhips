@@ -79,6 +79,10 @@ export type Video = {
   source: "dr-gombera" | "external";
   topics: ("overview" | "surgery" | "recovery" | "exercise" | "testimonial")[];
   caution?: string;
+  /** One or two plain-language lines shown under the video on the Videos page. */
+  summary?: string;
+  /** Local thumbnail path, set when scripts/fetch-video-thumbs.mjs saved one. */
+  thumb?: string;
   /** MM/DD/YYYY. A video with no approval date never renders on the site. */
   approvedOn?: string;
 };

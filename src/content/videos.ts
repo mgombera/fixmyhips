@@ -1,16 +1,49 @@
 import type { Video } from "./types";
 import titles from "./video-titles.json";
+import thumbs from "./video-thumbs.json";
 
-// Video registry. A video renders only with an approvedOn date (all approved 10/30/2026).
+// Video registry. A video renders only with an approvedOn date (approved 10/30/2026 unless set).
 // To withdraw one, give it approvedOn: undefined explicitly.
 // Titles and channels are filled by scripts/fetch-video-titles.mjs (YouTube oEmbed).
 // Exercise picks come from the scope's section 7 search; each still needs review.
 
 const RAW: Video[] = [
   // Existing videos from the original site (Dr. Gombera supplied the links)
-  { id: "existing-1", youtubeId: "20ayXeRdXL0", source: "dr-gombera", topics: ["overview"] },
-  { id: "existing-2", youtubeId: "_ZuBxOM2KKs", source: "dr-gombera", topics: ["overview"] },
-  { id: "existing-3", youtubeId: "eZBopkjkJ8s", source: "dr-gombera", topics: ["overview"] },
+  // Order here is the order on the Videos page. Summaries were written from the
+  // video titles; Dr. Gombera sent these three links on 11/22/2026.
+  { id: "existing-2", youtubeId: "_ZuBxOM2KKs", title: "\"I Have My Life Back\": A Patient's Story", channel: "Fondren Orthopedic Group", source: "dr-gombera", topics: ["testimonial"] },
+  {
+    id: "what-is-hip-arthroscopy",
+    youtubeId: "_j4rQ9DIZG8",
+    title: "What Is Hip Arthroscopy?",
+    channel: "Mufaddal Gombera, MD",
+    source: "dr-gombera",
+    topics: ["overview"],
+    approvedOn: "11/22/2026",
+    summary:
+      "Dr. Gombera explains what hip arthroscopy is and how this minimally invasive surgery treats problems inside the hip through small incisions.",
+  },
+  {
+    id: "day-in-the-or",
+    youtubeId: "W8p10IP0ToU",
+    title: "A Day in the Operating Room with Dr. Gombera",
+    channel: "Mufaddal Gombera, MD",
+    source: "dr-gombera",
+    topics: ["surgery"],
+    approvedOn: "11/22/2026",
+    summary: "Go behind the scenes for a day in the operating room with Dr. Gombera at Fondren Orthopedic Group.",
+  },
+  {
+    id: "existing-3",
+    youtubeId: "eZBopkjkJ8s",
+    title: "Hip Arthroscopy, Labral Repair, Femoral Osteoplasty for Hip Impingement",
+    channel: "Mufaddal Gombera, MD",
+    source: "dr-gombera",
+    topics: ["surgery"],
+    summary:
+      "See the surgery for hip impingement (cam and pincer FAI): repairing the torn labrum and reshaping the bone so the hip moves without pinching.",
+  },
+  { id: "existing-1", youtubeId: "20ayXeRdXL0", title: "Hip Arthroscopy in Houston", channel: "Mufaddal Gombera, MD", source: "dr-gombera", topics: ["overview"] },
 
   // Hip Arthroscopy exercise compilations
   { id: "comp-nashville-week1", youtubeId: "pBzMIHKjQR8", source: "external", topics: ["recovery"], caution: "Check for active straight-leg raises" },
@@ -84,7 +117,14 @@ export const VIDEOS_APPROVED_ON = "10/30/2026";
 
 const T = titles as Record<string, { title?: string; channel?: string }>;
 
-export const VIDEOS: Video[] = RAW.map((v) => ({ approvedOn: VIDEOS_APPROVED_ON, ...v, ...T[v.youtubeId] }));
+const THUMBS = new Set<string>(thumbs as string[]);
+
+export const VIDEOS: Video[] = RAW.map((v) => ({
+  approvedOn: VIDEOS_APPROVED_ON,
+  ...T[v.youtubeId],
+  ...v,
+  thumb: THUMBS.has(v.youtubeId) ? `/video-thumbs/${v.youtubeId}.jpg` : undefined,
+}));
 
 /** Shown under every video. The full VIDEO_NOTICE appears at the top of each video page. */
 export const VIDEO_CAPTION = "These videos are only a suggestion and are not formal medical advice.";
